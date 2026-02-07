@@ -1,1 +1,317 @@
-eightmonths
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Em Oito Meses</title>
+
+<style>
+:root{
+--rosa:#b76e79;
+--cinza:#e5e5e5;
+--preto:#1a1a1a;
+--branco:#ffffff;
+}
+
+body{
+margin:0;
+font-family:Arial, sans-serif;
+background:var(--cinza);
+color:var(--preto);
+}
+
+.tela{
+display:none;
+min-height:100vh;
+padding:20px;
+box-sizing:border-box;
+}
+
+.ativa{
+display:block;
+}
+
+/* LOGIN */
+
+#login{
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+background:var(--branco);
+}
+
+#login input{
+width:80%;
+max-width:300px;
+padding:12px;
+margin:10px 0;
+border:1px solid #ccc;
+border-radius:8px;
+font-size:16px;
+}
+
+#login button{
+padding:12px 25px;
+border:none;
+border-radius:8px;
+background:var(--rosa);
+color:white;
+font-size:16px;
+}
+
+/* PAINEL */
+
+header{
+background:var(--preto);
+color:white;
+padding:15px;
+text-align:center;
+border-radius:15px;
+}
+
+.card{
+background:white;
+padding:15px;
+border-radius:15px;
+margin:15px 0;
+box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+button{
+background:var(--rosa);
+border:none;
+color:white;
+padding:10px 18px;
+border-radius:8px;
+font-size:15px;
+margin-top:10px;
+}
+
+/* CHECK */
+
+.checklist label{
+display:block;
+margin:6px 0;
+}
+
+input[type="number"], textarea{
+width:100%;
+padding:10px;
+margin-top:6px;
+border-radius:8px;
+border:1px solid #ccc;
+}
+
+textarea{
+height:80px;
+resize:none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+
+<div id="login" class="tela ativa">
+
+<h1>Em Oito Meses</h1>
+
+<p id="frase"></p>
+
+<input id="user" placeholder="Usuário">
+<input id="pass" type="password" placeholder="Senha">
+
+<button onclick="entrar()">Entrar</button>
+
+<p id="erro" style="color:red;"></p>
+
+</div>
+
+<!-- PAINEL -->
+
+<div id="painel" class="tela">
+
+<header>
+<h2>Minha Jornada</h2>
+<p id="contador"></p>
+</header>
+
+<div class="card">
+
+<h3>📊 Peso</h3>
+
+<input type="number" id="peso" placeholder="Peso atual (kg)">
+<button onclick="salvarPeso()">Salvar</button>
+
+<p id="pesoSalvo"></p>
+
+</div>
+
+<div class="card checklist">
+
+<h3>☑️ Hoje</h3>
+
+<label><input type="checkbox" id="c1"> Caminhada</label>
+<label><input type="checkbox" id="c2"> Treino</label>
+<label><input type="checkbox" id="c3"> Água</label>
+<label><input type="checkbox" id="c4"> Marmita</label>
+
+<button onclick="salvarCheck()">Salvar</button>
+
+</div>
+
+<div class="card">
+
+<h3>📝 Diário</h3>
+
+<textarea id="diario"></textarea>
+
+<button onclick="salvarDiario()">Salvar</button>
+
+</div>
+
+<button onclick="sair()">Sair</button>
+
+</div>
+
+<script>
+
+/* FRASES */
+
+const frases=[
+"Disciplina vence desânimo.",
+"Nada muda se eu não mudar."
+];
+
+let f=localStorage.getItem("frase")||0;
+document.getElementById("frase").innerText=frases[f];
+localStorage.setItem("frase",(Number(f)+1)%2);
+
+/* LOGIN */
+
+function entrar(){
+
+let u=document.getElementById("user").value;
+let p=document.getElementById("pass").value;
+
+if(u==="Vitória" && p==="1997"){
+
+localStorage.setItem("logado","sim");
+
+abrirPainel();
+
+}else{
+
+document.getElementById("erro").innerText="Dados incorretos.";
+
+}
+
+}
+
+/* TELAS */
+
+function abrirPainel(){
+
+document.getElementById("login").classList.remove("ativa");
+document.getElementById("painel").classList.add("ativa");
+
+}
+
+function sair(){
+
+localStorage.removeItem("logado");
+location.reload();
+
+}
+
+/* PESO */
+
+function salvarPeso(){
+
+let v=document.getElementById("peso").value;
+
+localStorage.setItem("peso",v);
+
+document.getElementById("pesoSalvo").innerText=
+"Peso salvo: "+v+" kg";
+
+}
+
+/* CHECK */
+
+function salvarCheck(){
+
+localStorage.setItem("c1",c1.checked);
+localStorage.setItem("c2",c2.checked);
+localStorage.setItem("c3",c3.checked);
+localStorage.setItem("c4",c4.checked);
+
+alert("Checklist salvo 💖");
+
+}
+
+/* DIARIO */
+
+function salvarDiario(){
+
+localStorage.setItem("diario",
+document.getElementById("diario").value);
+
+alert("Salvo 💛");
+
+}
+
+/* CARREGAR */
+
+function carregar(){
+
+if(localStorage.getItem("logado")=="sim"){
+abrirPainel();
+}
+
+let p=localStorage.getItem("peso");
+if(p){
+peso.value=p;
+pesoSalvo.innerText="Peso salvo: "+p+" kg";
+}
+
+c1.checked=localStorage.getItem("c1")=="true";
+c2.checked=localStorage.getItem("c2")=="true";
+c3.checked=localStorage.getItem("c3")=="true";
+c4.checked=localStorage.getItem("c4")=="true";
+
+let d=localStorage.getItem("diario");
+if(d){
+diario.value=d;
+}
+
+}
+
+/* CONTADOR */
+
+function atualizarContador(){
+
+let inicio=new Date("2026-02-09");
+let hoje=new Date();
+
+let dias=Math.floor(
+(hoje-inicio)/(1000*60*60*24)
+)+1;
+
+document.getElementById("contador")
+.innerText="Dia "+dias+" de 120";
+
+}
+
+carregar();
+setInterval(atualizarContador,1000);
+atualizarContador();
+
+</script>
+
+</body>
+</html>
