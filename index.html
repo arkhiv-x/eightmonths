@@ -353,57 +353,6 @@ height:80px;
 
 </div>
 
-<script>
-
-/* FRASES */
-
-const frases=[
-"Disciplina vence desânimo.",
-"Nada muda se eu não mudar."
-];
-
-let f=localStorage.getItem("frase")||0;
-frase.innerText=frases[f];
-localStorage.setItem("frase",(+f+1)%2);
-
-/* MENU */
-
-function abrirMenu(){
-menu.classList.add("ativo");
-overlay.classList.add("ativo");
-}
-
-function fecharMenu(){
-menu.classList.remove("ativo");
-overlay.classList.remove("ativo");
-}
-
-/* TELAS */
-
-function abrirTela(id){
-
-document.querySelectorAll(".tela")
-.forEach(t=>t.classList.remove("ativa"));
-
-document.getElementById(id).classList.add("ativa");
-
-fecharMenu();
-
-}
-
-/* LOGIN */
-
-function entrar(){
-
-if(user.value==="Vitória" && pass.value==="1997"){
-
-localStorage.logado="sim";
-
-abrirTela("inicio");
-
-}else{
-erro.innerText="Dados incorretos";
-}
 
 }
 
@@ -540,16 +489,223 @@ carregarDiario();
 carregarCaminhada();
 carregarComida();
 
+<script>
+
+/* FRASES */
+
+const frases=[
+"Disciplina vence desânimo.",
+"Nada muda se eu não mudar."
+];
+
+let f=localStorage.getItem("frase")||0;
+document.getElementById("frase").innerText=frases[f];
+localStorage.setItem("frase",(Number(f)+1)%2);
+
+/* MENU */
+
+function abrirMenu(){
+document.getElementById("menu").classList.add("ativo");
+document.getElementById("overlay").classList.add("ativo");
 }
+
+function fecharMenu(){
+document.getElementById("menu").classList.remove("ativo");
+document.getElementById("overlay").classList.remove("ativo");
+}
+
+/* TELAS */
+
+function abrirTela(id){
+
+document.querySelectorAll(".tela").forEach(t=>{
+t.style.display="none";
+});
+
+document.getElementById(id).style.display="block";
+
+fecharMenu();
+
+}
+
+/* LOGIN */
+
+function entrar(){
+
+let u=document.getElementById("user").value.trim();
+let p=document.getElementById("pass").value.trim();
+
+if(u==="Vitória" && p==="1997"){
+
+localStorage.setItem("logado","sim");
+
+document.getElementById("login").style.display="none";
+abrirTela("inicio");
+
+}else{
+
+document.getElementById("erro").innerText="Usuário ou senha incorretos.";
+
+}
+
+}
+
+function sair(){
+
+localStorage.removeItem("logado");
+location.reload();
+
+}
+
+/* CHECK */
+
+function salvarCheck(){
+
+let data=new Date().toLocaleDateString();
+
+let obj={
+d:data,
+c1:c1.checked,
+c2:c2.checked,
+c3:c3.checked,
+c4:c4.checked
+};
+
+let lista=JSON.parse(localStorage.getItem("checks")||"[]");
+lista.push(obj);
+
+localStorage.setItem("checks",JSON.stringify(lista));
+
+alert("Salvo 💖");
+
+}
+
+/* PESO */
+
+function salvarPeso(){
+
+let v=document.getElementById("pesoAtual").value;
+
+localStorage.setItem("peso",v);
+
+document.getElementById("pesoInfo").innerText=
+"Atual: "+v+" kg";
+
+}
+
+/* DIARIO */
+
+function salvarDiario(){
+
+let txt=document.getElementById("textoDiario").value;
+
+if(!txt) return;
+
+let data=new Date().toLocaleString();
+
+let lista=JSON.parse(localStorage.getItem("diario")||"[]");
+
+lista.push({d:data,t:txt});
+
+localStorage.setItem("diario",JSON.stringify(lista));
+
+document.getElementById("textoDiario").value="";
+
+carregarDiario();
+
+}
+
+/* CAMINHADA */
+
+function salvarCaminhada(){
+
+let h=document.getElementById("horaCaminhada").value;
+
+if(!h) return;
+
+let lista=JSON.parse(localStorage.getItem("walk")||"[]");
+
+lista.push(new Date().toLocaleDateString()+" - "+h);
+
+localStorage.setItem("walk",JSON.stringify(lista));
+
+document.getElementById("horaCaminhada").value="";
+
+carregarCaminhada();
+
+}
+
+/* COMIDA */
+
+function salvarComida(){
+
+let c=document.getElementById("comida").value;
+
+if(!c) return;
+
+let lista=JSON.parse(localStorage.getItem("food")||"[]");
+
+lista.push(new Date().toLocaleDateString()+" - "+c);
+
+localStorage.setItem("food",JSON.stringify(lista));
+
+document.getElementById("comida").value="";
+
+carregarComida();
+
+}
+
+/* CONTADOR */
+
+function atualizarContador(){
+
+let inicio=new Date("2026-02-09");
+let hoje=new Date();
+
+let dias=Math.floor((hoje-inicio)/86400000)+1;
+
+document.getElementById("contador")
+.innerText="Dia "+dias+" de 120";
+
+}
+
+/* CARREGAR */
+
+function carregar(){
+
+document.querySelectorAll(".tela").forEach(t=>{
+t.style.display="none";
+});
+
+if(localStorage.getItem("logado")==="sim"){
+abrirTela("inicio");
+}else{
+document.getElementById("login").style.display="flex";
+}
+
+if(localStorage.getItem("peso")){
+document.getElementById("pesoInfo").innerText=
+"Atual: "+localStorage.getItem("peso")+" kg";
+}
+
+carregarDiario();
+carregarCaminhada();
+carregarComida();
+
+}
+
+/* HISTÓRICOS */
 
 function carregarDiario(){
 
-let lista=JSON.parse(localStorage.diario||"[]");
+let lista=JSON.parse(localStorage.getItem("diario")||"[]");
 
-listaDiario.innerHTML="<h4>Histórico</h4>";
+let box=document.getElementById("listaDiario");
 
-lista.reverse().forEach(i=>{
-listaDiario.innerHTML+=
+box.innerHTML="<h4>Histórico</h4>";
+
+lista.slice().reverse().forEach(i=>{
+box.innerHTML+=
 "<p><b>"+i.d+"</b><br>"+i.t+"</p>";
 });
 
@@ -557,24 +713,28 @@ listaDiario.innerHTML+=
 
 function carregarCaminhada(){
 
-let lista=JSON.parse(localStorage.walk||"[]");
+let lista=JSON.parse(localStorage.getItem("walk")||"[]");
 
-listaCaminhada.innerHTML="";
+let box=document.getElementById("listaCaminhada");
 
-lista.reverse().forEach(i=>{
-listaCaminhada.innerHTML+="<p>"+i+"</p>";
+box.innerHTML="";
+
+lista.slice().reverse().forEach(i=>{
+box.innerHTML+="<p>"+i+"</p>";
 });
 
 }
 
 function carregarComida(){
 
-let lista=JSON.parse(localStorage.food||"[]");
+let lista=JSON.parse(localStorage.getItem("food")||"[]");
 
-listaComida.innerHTML="";
+let box=document.getElementById("listaComida");
 
-lista.reverse().forEach(i=>{
-listaComida.innerHTML+="<p>"+i+"</p>";
+box.innerHTML="";
+
+lista.slice().reverse().forEach(i=>{
+box.innerHTML+="<p>"+i+"</p>";
 });
 
 }
