@@ -7,18 +7,24 @@
 <title>Em Oito Meses</title>
 
 <style>
+
+/* CORES */
+
 :root{
 --rosa:#b76e79;
---cinza:#e5e5e5;
+--rosa-claro:#f6e6e9;
 --preto:#1a1a1a;
 --branco:#ffffff;
 }
 
+/* BASE */
+
 body{
 margin:0;
 font-family:Arial, sans-serif;
-background:var(--cinza);
+background:var(--rosa-claro);
 color:var(--preto);
+overflow-x:hidden;
 }
 
 /* TELAS */
@@ -30,12 +36,96 @@ padding:20px;
 box-sizing:border-box;
 }
 
-#login, #painel{
-display:none;
-}
-
 .ativa{
 display:block;
+}
+
+/* HEADER */
+
+.topo{
+display:flex;
+align-items:center;
+gap:10px;
+background:var(--rosa);
+color:white;
+padding:15px;
+border-radius:0 0 15px 15px;
+}
+
+.menu-btn{
+font-size:22px;
+cursor:pointer;
+}
+
+/* MENU */
+
+.menu{
+position:fixed;
+top:0;
+left:-260px;
+width:260px;
+height:100%;
+background:var(--preto);
+color:white;
+padding:20px;
+box-sizing:border-box;
+transition:0.3s;
+z-index:10;
+}
+
+.menu.ativo{
+left:0;
+}
+
+.menu h3{
+margin-top:0;
+}
+
+.menu a{
+display:block;
+color:white;
+text-decoration:none;
+margin:15px 0;
+font-size:16px;
+}
+
+/* FUNDO ESCURO */
+
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.4);
+display:none;
+z-index:9;
+}
+
+.overlay.ativo{
+display:block;
+}
+
+/* CARDS */
+
+.card{
+background:white;
+padding:15px;
+border-radius:15px;
+margin:15px 0;
+box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* BOTÕES */
+
+button{
+background:var(--rosa);
+border:none;
+color:white;
+padding:10px 18px;
+border-radius:8px;
+font-size:15px;
+margin-top:10px;
 }
 
 /* LOGIN */
@@ -59,51 +149,9 @@ border-radius:8px;
 font-size:16px;
 }
 
-#login button{
-padding:12px 25px;
-border:none;
-border-radius:8px;
-background:var(--rosa);
-color:white;
-font-size:16px;
-}
+/* INPUTS */
 
-/* PAINEL */
-
-header{
-background:var(--preto);
-color:white;
-padding:15px;
-text-align:center;
-border-radius:15px;
-}
-
-.card{
-background:white;
-padding:15px;
-border-radius:15px;
-margin:15px 0;
-box-shadow:0 2px 8px rgba(0,0,0,0.1);
-}
-
-button{
-background:var(--rosa);
-border:none;
-color:white;
-padding:10px 18px;
-border-radius:8px;
-font-size:15px;
-margin-top:10px;
-}
-
-/* CHECK */
-
-.checklist label{
-display:block;
-margin:6px 0;
-}
-
-input[type="number"], textarea{
+input, textarea{
 width:100%;
 padding:10px;
 margin-top:6px;
@@ -112,17 +160,39 @@ border:1px solid #ccc;
 }
 
 textarea{
-height:80px;
 resize:none;
+height:80px;
 }
+
 </style>
 </head>
 
 <body>
 
+<!-- MENU -->
+
+<div class="menu" id="menu">
+
+<h3>Em Oito Meses</h3>
+
+<a onclick="abrirTela('inicio')">🏠 Início</a>
+<a onclick="abrirTela('peso')">⚖️ Peso</a>
+<a onclick="abrirTela('diario')">📝 Diário</a>
+<a onclick="abrirTela('treino')">🏋️ Treinos</a>
+<a onclick="abrirTela('caminhada')">🚶 Caminhada</a>
+<a onclick="abrirTela('alimentacao')">🥗 Alimentação</a>
+
+<hr>
+
+<a onclick="sair()">🚪 Sair</a>
+
+</div>
+
+<div class="overlay" id="overlay" onclick="fecharMenu()"></div>
+
 <!-- LOGIN -->
 
-<div id="login" class="tela">
+<div id="login" class="tela ativa">
 
 <h1>Em Oito Meses</h1>
 
@@ -137,50 +207,149 @@ resize:none;
 
 </div>
 
-<!-- PAINEL -->
+<!-- INICIO -->
 
-<div id="painel" class="tela">
+<div id="inicio" class="tela">
 
-<header>
-<h2>Minha Jornada</h2>
-<p id="contador"></p>
-</header>
+<div class="topo">
+<span class="menu-btn" onclick="abrirMenu()">☰</span>
+<b>Início</b>
+</div>
 
 <div class="card">
 
-<h3>📊 Peso</h3>
-
-<input type="number" id="peso" placeholder="Peso atual (kg)">
-<button onclick="salvarPeso()">Salvar</button>
-
-<p id="pesoSalvo"></p>
+<h3>📅 Jornada</h3>
+<p id="contador"></p>
 
 </div>
 
-<div class="card checklist">
+<div class="card">
 
-<h3>☑️ Hoje</h3>
+<h3>☑️ Checklist</h3>
 
-<label><input type="checkbox" id="c1"> Caminhada</label>
-<label><input type="checkbox" id="c2"> Treino</label>
-<label><input type="checkbox" id="c3"> Água</label>
+<label><input type="checkbox" id="c1"> Caminhada</label><br>
+<label><input type="checkbox" id="c2"> Treino</label><br>
+<label><input type="checkbox" id="c3"> Água</label><br>
 <label><input type="checkbox" id="c4"> Marmita</label>
 
 <button onclick="salvarCheck()">Salvar</button>
 
 </div>
 
+</div>
+
+<!-- PESO -->
+
+<div id="peso" class="tela">
+
+<div class="topo">
+<span class="menu-btn" onclick="abrirMenu()">☰</span>
+<b>Peso</b>
+</div>
+
 <div class="card">
 
-<h3>📝 Diário</h3>
+<input type="number" id="pesoAtual" placeholder="Peso (kg)">
+<button onclick="salvarPeso()">Salvar</button>
 
-<textarea id="diario"></textarea>
+<p id="pesoInfo"></p>
+
+</div>
+
+</div>
+
+<!-- DIARIO -->
+
+<div id="diario" class="tela">
+
+<div class="topo">
+<span class="menu-btn" onclick="abrirMenu()">☰</span>
+<b>Diário</b>
+</div>
+
+<div class="card">
+
+<textarea id="textoDiario" placeholder="Escreva aqui..."></textarea>
 
 <button onclick="salvarDiario()">Salvar</button>
 
 </div>
 
-<button onclick="sair()">Sair</button>
+<div class="card" id="listaDiario"></div>
+
+</div>
+
+<!-- TREINO -->
+
+<div id="treino" class="tela">
+
+<div class="topo">
+<span class="menu-btn" onclick="abrirMenu()">☰</span>
+<b>Treinos</b>
+</div>
+
+<div class="card">
+
+<h4>Superior</h4>
+<p>Rosca • Tríceps • Ombro</p>
+
+<h4>Inferior</h4>
+<p>Agachamento • Glúteo • Afundo</p>
+
+<h4>Alongamento</h4>
+<p>Pernas • Costas • Braços</p>
+
+</div>
+
+</div>
+
+<!-- CAMINHADA -->
+
+<div id="caminhada" class="tela">
+
+<div class="topo">
+<span class="menu-btn" onclick="abrirMenu()">☰</span>
+<b>Caminhada</b>
+</div>
+
+<div class="card">
+
+<input id="horaCaminhada" placeholder="Horário (ex: 07:30)">
+<button onclick="salvarCaminhada()">Registrar</button>
+
+<div id="listaCaminhada"></div>
+
+</div>
+
+</div>
+
+<!-- ALIMENTACAO -->
+
+<div id="alimentacao" class="tela">
+
+<div class="topo">
+<span class="menu-btn" onclick="abrirMenu()">☰</span>
+<b>Alimentação</b>
+</div>
+
+<div class="card">
+
+<h4>🍱 Sugerido</h4>
+<p>Frango • Arroz • Cenoura</p>
+<p>Ovo • Salada • Feijão</p>
+
+</div>
+
+<div class="card">
+
+<h4>✍️ Registro</h4>
+
+<input id="comida" placeholder="O que comi">
+<button onclick="salvarComida()">Salvar</button>
+
+<div id="listaComida"></div>
+
+</div>
 
 </div>
 
@@ -194,50 +363,46 @@ const frases=[
 ];
 
 let f=localStorage.getItem("frase")||0;
-document.getElementById("frase").innerText=frases[f];
-localStorage.setItem("frase",(Number(f)+1)%2);
+frase.innerText=frases[f];
+localStorage.setItem("frase",(+f+1)%2);
 
-/* INICIAR */
+/* MENU */
 
-function iniciar(){
-
-if(localStorage.getItem("logado")==="sim"){
-mostrarPainel();
-}else{
-mostrarLogin();
+function abrirMenu(){
+menu.classList.add("ativo");
+overlay.classList.add("ativo");
 }
 
+function fecharMenu(){
+menu.classList.remove("ativo");
+overlay.classList.remove("ativo");
 }
 
 /* TELAS */
 
-function mostrarLogin(){
-login.style.display="flex";
-painel.style.display="none";
-}
+function abrirTela(id){
 
-function mostrarPainel(){
-login.style.display="none";
-painel.style.display="block";
+document.querySelectorAll(".tela")
+.forEach(t=>t.classList.remove("ativa"));
+
+document.getElementById(id).classList.add("ativa");
+
+fecharMenu();
+
 }
 
 /* LOGIN */
 
 function entrar(){
 
-let u=user.value.trim();
-let p=pass.value.trim();
+if(user.value==="Vitória" && pass.value==="1997"){
 
-if(u==="Vitória" && p==="1997"){
+localStorage.logado="sim";
 
-localStorage.setItem("logado","sim");
-mostrarPainel();
-atualizarContador();
+abrirTela("inicio");
 
 }else{
-
-erro.innerText="Usuário ou senha incorretos.";
-
+erro.innerText="Dados incorretos";
 }
 
 }
@@ -249,28 +414,36 @@ location.reload();
 
 }
 
-/* PESO */
-
-function salvarPeso(){
-
-let v=peso.value;
-
-localStorage.setItem("peso",v);
-
-pesoSalvo.innerText="Peso salvo: "+v+" kg";
-
-}
-
 /* CHECK */
 
 function salvarCheck(){
 
-localStorage.setItem("c1",c1.checked);
-localStorage.setItem("c2",c2.checked);
-localStorage.setItem("c3",c3.checked);
-localStorage.setItem("c4",c4.checked);
+let data=new Date().toLocaleDateString();
 
-alert("Checklist salvo 💖");
+let obj={
+d:data,
+c1:c1.checked,
+c2:c2.checked,
+c3:c3.checked,
+c4:c4.checked
+};
+
+let lista=JSON.parse(localStorage.checks||"[]");
+lista.push(obj);
+
+localStorage.checks=JSON.stringify(lista);
+
+alert("Salvo 💖");
+
+}
+
+/* PESO */
+
+function salvarPeso(){
+
+localStorage.peso=pesoAtual.value;
+
+pesoInfo.innerText="Atual: "+pesoAtual.value+" kg";
 
 }
 
@@ -278,31 +451,61 @@ alert("Checklist salvo 💖");
 
 function salvarDiario(){
 
-localStorage.setItem("diario",diario.value);
+let data=new Date().toLocaleString();
 
-alert("Salvo 💛");
+let txt=textoDiario.value;
+
+if(!txt) return;
+
+let lista=JSON.parse(localStorage.diario||"[]");
+
+lista.push({d:data,t:txt});
+
+localStorage.diario=JSON.stringify(lista);
+
+textoDiario.value="";
+
+carregarDiario();
 
 }
 
-/* CARREGAR */
+/* CAMINHADA */
 
-function carregar(){
+function salvarCaminhada(){
 
-let p=localStorage.getItem("peso");
-if(p){
-peso.value=p;
-pesoSalvo.innerText="Peso salvo: "+p+" kg";
+let h=horaCaminhada.value;
+
+if(!h) return;
+
+let lista=JSON.parse(localStorage.walk||"[]");
+
+lista.push(new Date().toLocaleDateString()+" - "+h);
+
+localStorage.walk=JSON.stringify(lista);
+
+horaCaminhada.value="";
+
+carregarCaminhada();
+
 }
 
-c1.checked=localStorage.getItem("c1")==="true";
-c2.checked=localStorage.getItem("c2")==="true";
-c3.checked=localStorage.getItem("c3")==="true";
-c4.checked=localStorage.getItem("c4")==="true";
+/* COMIDA */
 
-let d=localStorage.getItem("diario");
-if(d){
-diario.value=d;
-}
+function salvarComida(){
+
+let c=comida.value;
+
+if(!c) return;
+
+let lista=JSON.parse(localStorage.food||"[]");
+
+lista.push(new Date().toLocaleDateString()+" - "+c);
+
+localStorage.food=JSON.stringify(lista);
+
+comida.value="";
+
+carregarComida();
 
 }
 
@@ -313,17 +516,72 @@ function atualizarContador(){
 let inicio=new Date("2026-02-09");
 let hoje=new Date();
 
-let dias=Math.floor(
-(hoje-inicio)/(1000*60*60*24)
-)+1;
+let dias=Math.floor((hoje-inicio)/86400000)+1;
 
 contador.innerText="Dia "+dias+" de 120";
 
 }
 
-iniciar();
+/* CARREGAR */
+
+function carregar(){
+
+if(localStorage.logado==="sim"){
+abrirTela("inicio");
+}else{
+login.classList.add("ativa");
+}
+
+if(localStorage.peso){
+pesoInfo.innerText="Atual: "+localStorage.peso+" kg";
+}
+
+carregarDiario();
+carregarCaminhada();
+carregarComida();
+
+}
+
+function carregarDiario(){
+
+let lista=JSON.parse(localStorage.diario||"[]");
+
+listaDiario.innerHTML="<h4>Histórico</h4>";
+
+lista.reverse().forEach(i=>{
+listaDiario.innerHTML+=
+"<p><b>"+i.d+"</b><br>"+i.t+"</p>";
+});
+
+}
+
+function carregarCaminhada(){
+
+let lista=JSON.parse(localStorage.walk||"[]");
+
+listaCaminhada.innerHTML="";
+
+lista.reverse().forEach(i=>{
+listaCaminhada.innerHTML+="<p>"+i+"</p>";
+});
+
+}
+
+function carregarComida(){
+
+let lista=JSON.parse(localStorage.food||"[]");
+
+listaComida.innerHTML="";
+
+lista.reverse().forEach(i=>{
+listaComida.innerHTML+="<p>"+i+"</p>";
+});
+
+}
+
 carregar();
 setInterval(atualizarContador,1000);
+atualizarContador();
 
 </script>
 
