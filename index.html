@@ -21,11 +21,17 @@ background:var(--cinza);
 color:var(--preto);
 }
 
+/* TELAS */
+
 .tela{
 display:none;
 min-height:100vh;
 padding:20px;
 box-sizing:border-box;
+}
+
+#login, #painel{
+display:none;
 }
 
 .ativa{
@@ -116,7 +122,7 @@ resize:none;
 
 <!-- LOGIN -->
 
-<div id="login" class="tela ativa">
+<div id="login" class="tela">
 
 <h1>Em Oito Meses</h1>
 
@@ -191,33 +197,48 @@ let f=localStorage.getItem("frase")||0;
 document.getElementById("frase").innerText=frases[f];
 localStorage.setItem("frase",(Number(f)+1)%2);
 
-/* LOGIN */
+/* INICIAR */
 
-function entrar(){
+function iniciar(){
 
-let u=document.getElementById("user").value;
-let p=document.getElementById("pass").value;
-
-if(u==="Vitória" && p==="1997"){
-
-localStorage.setItem("logado","sim");
-
-abrirPainel();
-
+if(localStorage.getItem("logado")==="sim"){
+mostrarPainel();
 }else{
-
-document.getElementById("erro").innerText="Dados incorretos.";
-
+mostrarLogin();
 }
 
 }
 
 /* TELAS */
 
-function abrirPainel(){
+function mostrarLogin(){
+login.style.display="flex";
+painel.style.display="none";
+}
 
-document.getElementById("login").classList.remove("ativa");
-document.getElementById("painel").classList.add("ativa");
+function mostrarPainel(){
+login.style.display="none";
+painel.style.display="block";
+}
+
+/* LOGIN */
+
+function entrar(){
+
+let u=user.value.trim();
+let p=pass.value.trim();
+
+if(u==="Vitória" && p==="1997"){
+
+localStorage.setItem("logado","sim");
+mostrarPainel();
+atualizarContador();
+
+}else{
+
+erro.innerText="Usuário ou senha incorretos.";
+
+}
 
 }
 
@@ -232,12 +253,11 @@ location.reload();
 
 function salvarPeso(){
 
-let v=document.getElementById("peso").value;
+let v=peso.value;
 
 localStorage.setItem("peso",v);
 
-document.getElementById("pesoSalvo").innerText=
-"Peso salvo: "+v+" kg";
+pesoSalvo.innerText="Peso salvo: "+v+" kg";
 
 }
 
@@ -258,8 +278,7 @@ alert("Checklist salvo 💖");
 
 function salvarDiario(){
 
-localStorage.setItem("diario",
-document.getElementById("diario").value);
+localStorage.setItem("diario",diario.value);
 
 alert("Salvo 💛");
 
@@ -269,20 +288,16 @@ alert("Salvo 💛");
 
 function carregar(){
 
-if(localStorage.getItem("logado")=="sim"){
-abrirPainel();
-}
-
 let p=localStorage.getItem("peso");
 if(p){
 peso.value=p;
 pesoSalvo.innerText="Peso salvo: "+p+" kg";
 }
 
-c1.checked=localStorage.getItem("c1")=="true";
-c2.checked=localStorage.getItem("c2")=="true";
-c3.checked=localStorage.getItem("c3")=="true";
-c4.checked=localStorage.getItem("c4")=="true";
+c1.checked=localStorage.getItem("c1")==="true";
+c2.checked=localStorage.getItem("c2")==="true";
+c3.checked=localStorage.getItem("c3")==="true";
+c4.checked=localStorage.getItem("c4")==="true";
 
 let d=localStorage.getItem("diario");
 if(d){
@@ -302,14 +317,13 @@ let dias=Math.floor(
 (hoje-inicio)/(1000*60*60*24)
 )+1;
 
-document.getElementById("contador")
-.innerText="Dia "+dias+" de 120";
+contador.innerText="Dia "+dias+" de 120";
 
 }
 
+iniciar();
 carregar();
 setInterval(atualizarContador,1000);
-atualizarContador();
 
 </script>
 
