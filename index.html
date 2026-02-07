@@ -2,12 +2,13 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
 <title>Em Oito Meses</title>
 
 <style>
 
+/* CORES */
 :root{
 --rosa:#b76e79;
 --rosa-claro:#f6e6e9;
@@ -15,40 +16,38 @@
 --branco:#ffffff;
 }
 
+/* RESET */
+*{
+box-sizing:border-box;
+}
+
 body{
 margin:0;
-font-family:Arial, sans-serif;
+font-family:Arial,sans-serif;
 background:var(--rosa-claro);
 color:var(--preto);
-overflow-x:hidden;
+height:100vh;
+overflow:hidden;
+}
+
+/* APP */
+#app{
+width:100%;
+height:100vh;
+position:relative;
+overflow:hidden;
 }
 
 /* TELAS */
 .tela{
 display:none;
-min-height:100vh;
-padding:20px;
-box-sizing:border-box;
+height:100%;
+overflow-y:auto;
+padding:15px;
 }
 
-/* LOGIN */
-#login{
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-background:var(--branco);
-min-height:100vh;
-}
-
-#login input{
-width:80%;
-max-width:300px;
-padding:12px;
-margin:10px 0;
-border:1px solid #ccc;
-border-radius:8px;
+.tela.ativa{
+display:block;
 }
 
 /* HEADER */
@@ -60,10 +59,14 @@ background:var(--rosa);
 color:white;
 padding:15px;
 border-radius:0 0 15px 15px;
+position:sticky;
+top:0;
+z-index:2;
 }
 
+/* BOTAO MENU */
 .menu-btn{
-font-size:22px;
+font-size:24px;
 cursor:pointer;
 }
 
@@ -73,21 +76,25 @@ position:fixed;
 top:0;
 left:-260px;
 width:260px;
-height:100%;
+height:100vh;
 background:var(--preto);
 color:white;
 padding:20px;
-transition:.3s;
-z-index:10;
+transition:0.3s;
+z-index:20;
+overflow-y:auto;
 }
 
-.menu.ativo{ left:0; }
+.menu.ativo{
+left:0;
+}
 
 .menu a{
 display:block;
 color:white;
 text-decoration:none;
 margin:15px 0;
+font-size:16px;
 }
 
 /* OVERLAY */
@@ -99,10 +106,12 @@ width:100%;
 height:100%;
 background:rgba(0,0,0,.4);
 display:none;
-z-index:9;
+z-index:15;
 }
 
-.overlay.ativo{ display:block; }
+.overlay.ativo{
+display:block;
+}
 
 /* CARDS */
 .card{
@@ -113,6 +122,7 @@ margin:15px 0;
 box-shadow:0 2px 8px rgba(0,0,0,.1);
 }
 
+/* BOTAO */
 button{
 background:var(--rosa);
 border:none;
@@ -120,10 +130,11 @@ color:white;
 padding:10px 18px;
 border-radius:8px;
 margin-top:10px;
+font-size:15px;
 }
 
 /* INPUT */
-input, textarea{
+input,textarea{
 width:100%;
 padding:10px;
 margin-top:6px;
@@ -131,12 +142,32 @@ border-radius:8px;
 border:1px solid #ccc;
 }
 
-textarea{ resize:none; height:80px; }
+textarea{
+resize:none;
+height:80px;
+}
+
+/* LOGIN */
+#login{
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+background:var(--branco);
+height:100%;
+}
+
+#login input{
+max-width:300px;
+}
 
 </style>
 </head>
 
 <body>
+
+<div id="app">
 
 <!-- MENU -->
 <div class="menu" id="menu">
@@ -159,7 +190,7 @@ textarea{ resize:none; height:80px; }
 <div class="overlay" id="overlay" onclick="fecharMenu()"></div>
 
 <!-- LOGIN -->
-<div id="login" class="tela">
+<div id="login" class="tela ativa">
 
 <h1>Em Oito Meses</h1>
 <p id="frase"></p>
@@ -170,6 +201,7 @@ textarea{ resize:none; height:80px; }
 <button onclick="entrar()">Entrar</button>
 
 <p id="erro" style="color:red;"></p>
+
 </div>
 
 <!-- INICIO -->
@@ -197,6 +229,7 @@ textarea{ resize:none; height:80px; }
 <button onclick="salvarCheck()">Salvar</button>
 
 </div>
+
 </div>
 
 <!-- PESO -->
@@ -215,6 +248,7 @@ textarea{ resize:none; height:80px; }
 <p id="pesoInfo"></p>
 
 </div>
+
 </div>
 
 <!-- DIARIO -->
@@ -256,6 +290,7 @@ textarea{ resize:none; height:80px; }
 <p>Pernas • Costas • Braços</p>
 
 </div>
+
 </div>
 
 <!-- CAMINHADA -->
@@ -268,12 +303,13 @@ textarea{ resize:none; height:80px; }
 
 <div class="card">
 
-<input id="horaCaminhada" placeholder="Horário (ex: 07:30)">
+<input id="horaCaminhada" placeholder="Horário (07:30)">
 <button onclick="salvarCaminhada()">Registrar</button>
 
 <div id="listaCaminhada"></div>
 
 </div>
+
 </div>
 
 <!-- ALIMENTACAO -->
@@ -302,6 +338,9 @@ textarea{ resize:none; height:80px; }
 <div id="listaComida"></div>
 
 </div>
+
+</div>
+
 </div>
 
 <script>
@@ -313,7 +352,7 @@ const frases=[
 ];
 
 let f=localStorage.getItem("frase")||0;
-document.getElementById("frase").innerText=frases[f];
+frase.innerText=frases[f];
 localStorage.setItem("frase",(Number(f)+1)%2);
 
 /* MENU */
@@ -331,10 +370,10 @@ overlay.classList.remove("ativo");
 function abrirTela(id){
 
 document.querySelectorAll(".tela").forEach(t=>{
-t.style.display="none";
+t.classList.remove("ativa");
 });
 
-document.getElementById(id).style.display="block";
+document.getElementById(id).classList.add("ativa");
 
 fecharMenu();
 }
@@ -342,18 +381,14 @@ fecharMenu();
 /* LOGIN */
 function entrar(){
 
-let u=user.value.trim();
-let p=pass.value.trim();
-
-if(u==="Vitória" && p==="1997"){
+if(user.value==="Vitória" && pass.value==="1997"){
 
 localStorage.logado="sim";
 
-document.getElementById("login").style.display="none";
 abrirTela("inicio");
 
 }else{
-erro.innerText="Usuário ou senha incorretos.";
+erro.innerText="Dados incorretos.";
 }
 }
 
@@ -365,18 +400,15 @@ location.reload();
 /* CHECK */
 function salvarCheck(){
 
-let data=new Date().toLocaleDateString();
+let lista=JSON.parse(localStorage.checks||"[]");
 
-let obj={
-d:data,
+lista.push({
+d:new Date().toLocaleDateString(),
 c1:c1.checked,
 c2:c2.checked,
 c3:c3.checked,
 c4:c4.checked
-};
-
-let lista=JSON.parse(localStorage.checks||"[]");
-lista.push(obj);
+});
 
 localStorage.checks=JSON.stringify(lista);
 
@@ -394,15 +426,14 @@ pesoInfo.innerText="Atual: "+pesoAtual.value+" kg";
 /* DIARIO */
 function salvarDiario(){
 
-let txt=textoDiario.value;
-
-if(!txt) return;
-
-let data=new Date().toLocaleString();
+if(!textoDiario.value) return;
 
 let lista=JSON.parse(localStorage.diario||"[]");
 
-lista.push({d:data,t:txt});
+lista.push({
+d:new Date().toLocaleString(),
+t:textoDiario.value
+});
 
 localStorage.diario=JSON.stringify(lista);
 
@@ -414,13 +445,13 @@ carregarDiario();
 /* CAMINHADA */
 function salvarCaminhada(){
 
-let h=horaCaminhada.value;
-
-if(!h) return;
+if(!horaCaminhada.value) return;
 
 let lista=JSON.parse(localStorage.walk||"[]");
 
-lista.push(new Date().toLocaleDateString()+" - "+h);
+lista.push(
+new Date().toLocaleDateString()+" - "+horaCaminhada.value
+);
 
 localStorage.walk=JSON.stringify(lista);
 
@@ -432,13 +463,13 @@ carregarCaminhada();
 /* COMIDA */
 function salvarComida(){
 
-let c=comida.value;
-
-if(!c) return;
+if(!comida.value) return;
 
 let lista=JSON.parse(localStorage.food||"[]");
 
-lista.push(new Date().toLocaleDateString()+" - "+c);
+lista.push(
+new Date().toLocaleDateString()+" - "+comida.value
+);
 
 localStorage.food=JSON.stringify(lista);
 
@@ -461,14 +492,10 @@ contador.innerText="Dia "+dias+" de 120";
 /* CARREGAR */
 function carregar(){
 
-document.querySelectorAll(".tela").forEach(t=>{
-t.style.display="none";
-});
-
 if(localStorage.logado==="sim"){
 abrirTela("inicio");
 }else{
-document.getElementById("login").style.display="flex";
+login.classList.add("ativa");
 }
 
 if(localStorage.peso){
@@ -480,17 +507,15 @@ carregarCaminhada();
 carregarComida();
 }
 
-/* HISTORICO */
+/* HISTORICOS */
 function carregarDiario(){
 
 let lista=JSON.parse(localStorage.diario||"[]");
 
-let box=listaDiario;
-
-box.innerHTML="<h4>Histórico</h4>";
+listaDiario.innerHTML="<h4>Histórico</h4>";
 
 lista.slice().reverse().forEach(i=>{
-box.innerHTML+=
+listaDiario.innerHTML+=
 "<p><b>"+i.d+"</b><br>"+i.t+"</p>";
 });
 }
