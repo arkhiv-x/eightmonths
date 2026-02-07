@@ -11,6 +11,7 @@
 </head>
 <body>
 
+<!-- MENU -->
 <div class="menu" id="menu">
 
 <h3>Em Oito Meses</h3>
@@ -30,28 +31,64 @@
 
 <div class="overlay" id="overlay" onclick="closeMenu()"></div>
 
+<!-- CONTEÚDO -->
 <div class="page">
 
+<!-- TOPO -->
 <div class="topo">
 <span onclick="openMenu()">☰</span>
 <b>Início</b>
 </div>
 
+<!-- CALENDÁRIO -->
 <div class="card">
-<h3>📅 Jornada</h3>
-<p id="contador"></p>
+
+<h3>📅 Calendário</h3>
+
+<div id="calendario"></div>
+
 </div>
 
+<!-- JORNADA -->
+<div class="card">
+
+<h3>🌱 Jornada</h3>
+<p id="contador"></p>
+
+</div>
+
+<!-- DIÁRIO RÁPIDO -->
+<div class="card">
+
+<h3>📝 Como foi hoje?</h3>
+
+<textarea id="diarioHome"
+placeholder="Escreva aqui como foi seu dia..."></textarea>
+
+<button onclick="salvarDiarioHome()">
+Salvar
+</button>
+
+</div>
+
+<!-- CHECKLIST -->
 <div class="card">
 
 <h3>☑️ Checklist</h3>
+
+<div class="checklist">
 
 <label><input type="checkbox" id="c1"> Caminhada</label><br>
 <label><input type="checkbox" id="c2"> Treino</label><br>
 <label><input type="checkbox" id="c3"> Água</label><br>
 <label><input type="checkbox" id="c4"> Marmita</label>
 
-<button onclick="saveCheck()">Salvar</button>
+</div>
+
+<button class="btn-center"
+onclick="saveCheck()">
+Salvar Checklist
+</button>
 
 </div>
 
