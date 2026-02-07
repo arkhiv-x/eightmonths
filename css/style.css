@@ -181,30 +181,33 @@ color:white;
 font-weight:bold;
 }
 
-/* ===== DIÁRIO HOME ===== */
+/* ===== DIÁRIO HOME (CORRIGIDO) ===== */
 
 .diario-box{
 display:flex;
 flex-direction:column;
-gap:12px;
+width:100%;
 }
 
 #diarioHome{
+display:block;
 width:100%;
-min-height:120px;
+min-height:140px;
 resize:none;
 padding:12px;
 border-radius:10px;
 border:1px solid #ccc;
 font-size:14px;
+box-sizing:border-box;
 }
 
 .btn-diario{
+margin-top:10px;
 align-self:flex-end;
 background:#b76e79;
 color:white;
 border:none;
-padding:8px 20px;
+padding:8px 22px;
 border-radius:8px;
 font-size:14px;
 }
