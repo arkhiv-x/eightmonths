@@ -102,3 +102,69 @@ contador.innerText="Dia "+d+" de 120";
 
 setInterval(update,1000);
 update();
+
+/* CALENDÁRIO */
+
+function gerarCalendario(){
+
+let hoje=new Date();
+
+let ano=hoje.getFullYear();
+let mes=hoje.getMonth();
+
+let primeiro=new Date(ano,mes,1).getDay();
+let ultimo=new Date(ano,mes+1,0).getDate();
+
+let box=document.getElementById("calendario");
+
+if(!box) return;
+
+box.innerHTML="";
+
+for(let i=0;i<primeiro;i++){
+box.innerHTML+="<div></div>";
+}
+
+for(let d=1;d<=ultimo;d++){
+
+let div=document.createElement("div");
+
+div.innerText=d;
+
+if(
+d===hoje.getDate()
+){
+div.classList.add("hoje");
+}
+
+box.appendChild(div);
+}
+
+}
+
+/* DIÁRIO HOME */
+
+function salvarDiarioHome(){
+
+let txt=document.getElementById("diarioHome").value;
+
+if(!txt) return;
+
+let arr=JSON.parse(localStorage.diario||"[]");
+
+arr.push({
+d:new Date().toLocaleString(),
+t:txt
+});
+
+localStorage.diario=JSON.stringify(arr);
+
+document.getElementById("diarioHome").value="";
+
+alert("Salvo 💖");
+
+}
+
+/* INICIAR */
+
+gerarCalendario();
