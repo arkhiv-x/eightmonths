@@ -211,3 +211,30 @@ padding:8px 22px;
 border-radius:8px;
 font-size:14px;
 }
+
+/* ===== CHECKLIST BONITO ===== */
+
+.check-box{
+display:flex;
+flex-direction:column;
+gap:10px;
+padding:10px 0;
+}
+
+.check-box label{
+display:flex;
+align-items:center;
+gap:8px;
+font-size:15px;
+}
+
+.btn-check{
+margin-top:10px;
+align-self:flex-end;
+background:#b76e79;
+color:white;
+border:none;
+padding:8px 22px;
+border-radius:8px;
+font-size:14px;
+}
