@@ -640,3 +640,109 @@ function salvarFoto(e){
 
   reader.readAsDataURL(file);
 }
+
+/* ===== PERFIL COMPLETO ===== */
+
+function salvarPerfilCompleto(){
+
+let perfil = {
+nome: $("perfilNome").value,
+idade: $("perfilIdade").value,
+altura: $("perfilAltura").value,
+peso: $("perfilPeso").value,
+tel: $("perfilTel").value,
+email: $("perfilEmail").value,
+insta: $("perfilInsta").value,
+foto: localStorage.fotoPerfil || ""
+};
+
+localStorage.perfilCompleto = JSON.stringify(perfil);
+
+$("nomeExibido").innerText = perfil.nome || "Seu nome";
+
+alert("Perfil salvo 💖");
+}
+
+function carregarPerfilCompleto(){
+
+if(!$("perfilNome")) return;
+
+let perfil = JSON.parse(localStorage.perfilCompleto || "{}");
+
+$("perfilNome").value = perfil.nome || "";
+$("perfilIdade").value = perfil.idade || "";
+$("perfilAltura").value = perfil.altura || "";
+$("perfilPeso").value = perfil.peso || "";
+$("perfilTel").value = perfil.tel || "";
+$("perfilEmail").value = perfil.email || "";
+$("perfilInsta").value = perfil.insta || "";
+
+if(perfil.nome){
+$("nomeExibido").innerText = perfil.nome;
+}
+
+if(perfil.foto){
+$("fotoPerfil").src = perfil.foto;
+}
+}
+
+/* FOTO PERFIL */
+
+function salvarFoto(e){
+
+let file = e.target.files[0];
+if(!file) return;
+
+let reader = new FileReader();
+
+reader.onload = function(){
+
+localStorage.fotoPerfil = reader.result;
+$("fotoPerfil").src = reader.result;
+
+};
+
+reader.readAsDataURL(file);
+}
+
+/* ===== EVOLUÇÃO ===== */
+
+function salvarEvolucao(e){
+
+let file = e.target.files[0];
+if(!file) return;
+
+let reader = new FileReader();
+
+reader.onload = function(){
+
+let lista = JSON.parse(localStorage.evolucao || "[]");
+
+lista.unshift(reader.result);
+
+localStorage.evolucao = JSON.stringify(lista);
+
+carregarEvolucao();
+
+};
+
+reader.readAsDataURL(file);
+}
+
+function carregarEvolucao(){
+
+let box = $("galeriaEvolucao");
+if(!box) return;
+
+let lista = JSON.parse(localStorage.evolucao || "[]");
+
+let html = "";
+
+lista.forEach(img=>{
+
+html += `<img src="${img}">`;
+
+});
+
+box.innerHTML = html;
+}
