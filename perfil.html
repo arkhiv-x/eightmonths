@@ -8,26 +8,26 @@
 
 <link rel="stylesheet" href="css/style.css">
 </head>
-<body onload="aplicarTema()">
+
+<body onload="aplicarTema(); carregarPerfilCompleto(); carregarEvolucao()">
 
 <!-- MENU -->
 <div class="menu" id="menu">
 
 <h3>Em Oito Meses</h3>
 
-<a href="inicio.html">🏠 Início</a>
-<a href="perfil.html">👤 Perfil</a>
-<a href="peso.html">⚖️ Peso</a>
-<a href="diario.html">📝 Diário</a>
-<a href="treino.html">🏋️ Treinos</a>
-<a href="caminhada.html">🚶 Caminhada</a>
-<a href="alimentacao.html">🥗 Alimentação</a>
-<a href="perfil.html">👤 Perfil</a>
-<a href="config.html">⚙️ Configurações</a>
+<a href="inicio.html">Início</a>
+<a href="peso.html">Peso</a>
+<a href="diario.html">Diário</a>
+<a href="treino.html">Treinos</a>
+<a href="caminhada.html">Caminhada</a>
+<a href="alimentacao.html">Alimentação</a>
+<a href="perfil.html">Perfil</a>
+<a href="config.html">Configurações</a>
 
 <hr>
 
-<a onclick="logout()">🚪 Sair</a>
+<a onclick="logout()">Sair</a>
 
 </div>
 
@@ -42,37 +42,76 @@
 <b>Meu Perfil</b>
 </div>
 
-<!-- FOTO -->
-<div class="card center">
+<!-- FOTO + NOME -->
+<div class="card perfil-topo">
 
-<h3>📸 Minha Foto</h3>
+<div class="foto-box">
 
 <img id="fotoPerfil"
 src="img/avatar.png"
 class="foto-perfil">
 
-<input type="file"
-accept="image/*"
-onchange="salvarFoto(event)">
+<label class="btn-foto">
+Alterar
+<input type="file" accept="image/*" onchange="salvarFoto(event)">
+</label>
+
+</div>
+
+<h2 id="nomeExibido">Seu nome</h2>
 
 </div>
 
 <!-- DADOS -->
+<div class="card perfil-dados">
+
+<h3>Dados Pessoais</h3>
+
+<div class="grupo">
+
+<label>Nome</label>
+<input id="perfilNome">
+
+<label>Idade</label>
+<input id="perfilIdade">
+
+<label>Altura</label>
+<input id="perfilAltura">
+
+<label>Peso</label>
+<input id="perfilPeso">
+
+<label>Telefone</label>
+<input id="perfilTel">
+
+<label>Email</label>
+<input id="perfilEmail">
+
+<label>Instagram</label>
+<input id="perfilInsta">
+
+</div>
+
+</div>
+
+<!-- EVOLUÇÃO -->
 <div class="card">
 
-<h3>📋 Meus Dados</h3>
+<h3>Evolução</h3>
 
-<input id="perfilNome" placeholder="Nome">
+<input type="file"
+accept="image/*"
+onchange="salvarEvolucao(event)">
 
-<input id="perfilIdade" placeholder="Idade">
+<div id="galeriaEvolucao" class="galeria"></div>
 
-<input id="perfilAltura" placeholder="Altura (ex: 1.65)">
+</div>
 
-<input id="perfilPeso" placeholder="Peso atual">
+<!-- BOTÃO FINAL -->
+<div class="card center">
 
-<input id="perfilTel" placeholder="Telefone (opcional)">
-
-<button onclick="salvarPerfilCompleto()">
+<button class="btn-grande"
+onclick="salvarPerfilCompleto()">
 Salvar Perfil
 </button>
 
