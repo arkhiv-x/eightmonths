@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Treinos - Em Oito Meses</title>
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<!-- MENU -->
+<div class="menu" id="menu">
+
+<h3>Em Oito Meses</h3>
+
+<a href="inicio.html">🏠 Início</a>
+<a href="peso.html">⚖️ Peso</a>
+<a href="diario.html">📝 Diário</a>
+<a href="treino.html">🏋️ Treinos</a>
+<a href="caminhada.html">🚶 Caminhada</a>
+<a href="alimentacao.html">🥗 Alimentação</a>
+
+<hr>
+
+<a onclick="logout()">🚪 Sair</a>
+
+</div>
+
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
+
+<!-- CONTEÚDO -->
+<div class="page">
+
+<!-- TOPO -->
+<div class="topo">
+<span onclick="openMenu()">☰</span>
+<b>Treinos</b>
+</div>
+
+
+<!-- FOLGA -->
+<div class="card">
+
+<h3>🌸 Dia de Folga</h3>
+
+<h4>🚶 Caminhada (1h30–2h)</h4>
+<ul>
+<li>Aquecimento 10 min</li>
+<li>Ritmo moderado 60–90 min</li>
+<li>Desaceleração 10 min</li>
+</ul>
+
+<h4>🏋️ Treino em Casa (1h30–2h)</h4>
+
+<b>Inferior</b>
+<ul>
+<li>Agachamento — 3x12</li>
+<li>Elevação pélvica — 3x15</li>
+<li>Avanço — 3x10</li>
+<li>Stiff — 3x12</li>
+</ul>
+
+<b>Superior</b>
+<ul>
+<li>Rosca com halter — 3x12</li>
+<li>Tríceps — 3x12</li>
+<li>Elevação lateral — 3x10</li>
+<li>Remada — 3x12</li>
+</ul>
+
+<b>Core</b>
+<ul>
+<li>Prancha — 3x30s</li>
+<li>Abdominal — 3x15</li>
+</ul>
+
+<b>Alongamento</b>
+<ul>
+<li>Pernas</li>
+<li>Costas</li>
+<li>Braços</li>
+</ul>
+
+</div>
+
+
+<!-- TRABALHO -->
+<div class="card">
+
+<h3>🌙 Dia de Trabalho</h3>
+
+<h4>Treino Leve (30 min)</h4>
+
+<ul>
+<li>Caminhada no lugar — 5 min</li>
+<li>Agachamento — 2x12</li>
+<li>Rosca — 2x12</li>
+<li>Elevação pélvica — 2x15</li>
+<li>Alongamento — 5 min</li>
+</ul>
+
+</div>
+
+
+<!-- REGISTRO -->
+<div class="card">
+
+<h3>✅ Treino do Dia</h3>
+
+<label>
+<input type="checkbox" id="treinoFeito">
+ Concluí hoje
+</label>
+
+<button class="btn-center"
+onclick="registrarTreino()">
+Salvar
+</button>
+
+</div>
+
+
+</div>
+
+<script src="js/app.js"></script>
+
+</body>
+</html>
