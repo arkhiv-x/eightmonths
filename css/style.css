@@ -249,3 +249,34 @@ border:1px solid #ccc;
 font-size:15px;
 margin-bottom:10px;
 }
+
+/* DIÁRIO */
+
+#diarioTexto{
+width:100%;
+min-height:120px;
+padding:10px;
+border-radius:10px;
+border:1px solid #ccc;
+font-size:15px;
+resize:none;
+margin-bottom:10px;
+}
+
+.diario-item{
+background:#f9e7ea;
+padding:12px;
+border-radius:10px;
+margin-bottom:10px;
+}
+
+.diario-item small{
+color:#555;
+display:block;
+margin-bottom:5px;
+}
+
+.diario-item p{
+margin:0;
+line-height:1.4;
+}
