@@ -1,6 +1,6 @@
 /* ===== ELEMENTOS ===== */
 
-function $(id){
+function byld(id){
   return document.getElementById(id);
 }
 
