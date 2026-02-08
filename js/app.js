@@ -516,63 +516,179 @@ function limparComida(){ limpar("comidas","Apagar alimentação?"); }
 function limparChecklist(){ limpar("checks","Apagar checklist?"); }
 function limparAgua(){ limpar("agua","Apagar água?"); }
 
-/* ================= CONFIG ================= */
-
-function setTema(t){
-
-  localStorage.tema = t;
-
-  aplicarTema();
-}
+/* ================= CONFIG / TEMA ================= */
 
 function aplicarTema(){
 
   let tema = localStorage.tema || "claro";
 
-  if(tema==="escuro"){
-
+  if(tema === "dark"){
     document.body.classList.add("dark");
-
   }else{
-
     document.body.classList.remove("dark");
-
   }
 }
 
-aplicarTema();
+function toggleDark(){
+
+  let chk = document.getElementById("modoEscuro");
+
+  if(chk && chk.checked){
+    localStorage.tema = "dark";
+  }else{
+    localStorage.tema = "claro";
+  }
+
+  aplicarTema();
+}
+
+document.addEventListener("DOMContentLoaded", ()=>{
+
+  aplicarTema();
+
+  let chk = document.getElementById("modoEscuro");
+
+  if(chk && localStorage.tema === "dark"){
+    chk.checked = true;
+  }
+
+  carregarPerfilCompleto();
+  carregarEvolucao();
+
+});
 
 
-function salvarPerfil(){
+/* ================= PERFIL ================= */
 
-  let nome = $("nomePerfil")?.value;
-  let altura = $("alturaPerfil")?.value;
-  let meta = $("metaPerfil")?.value;
+function salvarPerfilCompleto(){
 
   let perfil = {
-    nome,
-    altura,
-    meta
+
+    nome: $("perfilNome")?.value || "",
+    idade: $("perfilIdade")?.value || "",
+    altura: $("perfilAltura")?.value || "",
+    peso: $("perfilPeso")?.value || "",
+    tel: $("perfilTel")?.value || "",
+    email: $("perfilEmail")?.value || "",
+    insta: $("perfilInsta")?.value || "",
+    bio: $("perfilBio")?.value || "",
+    foto: localStorage.fotoPerfil || ""
+
   };
 
-  localStorage.perfil = JSON.stringify(perfil);
+  localStorage.perfilCompleto = JSON.stringify(perfil);
+
+  if($("nomeExibido")){
+    $("nomeExibido").innerText = perfil.nome || "";
+  }
 
   alert("Perfil salvo 💖");
 }
 
-function carregarPerfil(){
 
-  if(!$("nomePerfil")) return;
+function carregarPerfilCompleto(){
 
-  let perfil = JSON.parse(localStorage.perfil || "{}");
+  if(!$("perfilNome")) return;
 
-  $("nomePerfil").value = perfil.nome || "";
-  $("alturaPerfil").value = perfil.altura || "";
-  $("metaPerfil").value = perfil.meta || "";
+  let perfil = JSON.parse(localStorage.perfilCompleto || "{}");
+
+  $("perfilNome").value = perfil.nome || "";
+  $("perfilIdade").value = perfil.idade || "";
+  $("perfilAltura").value = perfil.altura || "";
+  $("perfilPeso").value = perfil.peso || "";
+  $("perfilTel").value = perfil.tel || "";
+  $("perfilEmail").value = perfil.email || "";
+  $("perfilInsta").value = perfil.insta || "";
+  $("perfilBio").value = perfil.bio || "";
+
+  if(perfil.nome && $("nomeExibido")){
+    $("nomeExibido").innerText = perfil.nome;
+  }
+
+  if(perfil.foto && $("fotoPerfil")){
+    $("fotoPerfil").src = perfil.foto;
+  }
 }
 
-carregarPerfil();
 
+/* ================= FOTO PERFIL ================= */
+
+function salvarFoto(e){
+
+  let file = e.target.files[0];
+  if(!file) return;
+
+  let reader = new FileReader();
+
+  reader.onload = function(){
+
+    localStorage.fotoPerfil = reader.result;
+
+    if($("fotoPerfil")){
+      $("fotoPerfil").src = reader.result;
+    }
+
+  };
+
+  reader.readAsDataURL(file);
+}
+
+
+/* ================= EVOLUÇÃO ================= */
+
+function salvarEvolucao(e){
+
+  let file = e.target.files[0];
+  if(!file) return;
+
+  let reader = new FileReader();
+
+  reader.onload = function(){
+
+    let lista = JSON.parse(localStorage.evolucao || "[]");
+
+    lista.unshift(reader.result);
+
+    localStorage.evolucao = JSON.stringify(lista);
+
+    carregarEvolucao();
+  };
+
+  reader.readAsDataURL(file);
+}
+
+
+function carregarEvolucao(){
+
+  let box = $("galeriaEvolucao");
+
+  if(!box) return;
+
+  let lista = JSON.parse(localStorage.evolucao || "[]");
+
+  let html="";
+
+  lista.forEach(img=>{
+
+    html += `<img src="${img}" onclick="verImagem('${img}')">`;
+
+  });
+
+  box.innerHTML = html;
+}
+
+
+function verImagem(src){
+
+  let w = window.open("");
+
+  w.document.write(`
+    <img src="${src}" style="width:100%">
+  `);
+}
+
+
+/* ================= LIMPAR TUDO ================= */
 
 function limparTudo(){
 
@@ -584,271 +700,3 @@ function limparTudo(){
 
   location.href="index.html";
 }
-
-/* ===== PERFIL ===== */
-
-function salvarPerfilCompleto(){
-
-let perfil = {
-nome: $("perfilNome").value,
-idade: $("perfilIdade").value,
-altura: $("perfilAltura").value,
-peso: $("perfilPeso").value,
-tel: $("perfilTel").value,
-email: $("perfilEmail").value,
-insta: $("perfilInsta").value,
-bio: $("perfilBio").value,
-foto: $("fotoPerfil").src || "",
-evolucao: JSON.parse(localStorage.evolucao || "[]")
-};
-
-localStorage.perfilCompleto = JSON.stringify(perfil);
-
-$("nomeExibido").innerText = perfil.nome || "Seu nome";
-
-alert("Perfil salvo com sucesso 💗");
-}
-
-function carregarPerfilCompleto(){
-
-let perfil = JSON.parse(localStorage.perfilCompleto || "{}");
-if(!perfil) return;
-
-if($("perfilNome")){
-
-$("perfilNome").value = perfil.nome || "";
-$("perfilIdade").value = perfil.idade || "";
-$("perfilAltura").value = perfil.altura || "";
-$("perfilPeso").value = perfil.peso || "";
-$("perfilTel").value = perfil.tel || "";
-$("perfilEmail").value = perfil.email || "";
-$("perfilInsta").value = perfil.insta || "";
-$("perfilBio").value = perfil.bio || "";
-
-if(perfil.nome){
-$("nomeExibido").innerText = perfil.nome;
-}
-
-if(perfil.foto){
-$("fotoPerfil").src = perfil.foto;
-}
-}
-
-carregarEvolucao();
-}
-
-/* FOTO */
-
-function salvarFoto(e){
-
-let file = e.target.files[0];
-if(!file) return;
-
-let reader = new FileReader();
-
-reader.onload = function(){
-$("fotoPerfil").src = reader.result;
-
-let perfil = JSON.parse(localStorage.perfilCompleto || "{}");
-perfil.foto = reader.result;
-localStorage.perfilCompleto = JSON.stringify(perfil);
-};
-
-reader.readAsDataURL(file);
-}
-
-/* ===== PERFIL COMPLETO ===== */
-
-function salvarPerfilCompleto(){
-
-let perfil = {
-nome: $("perfilNome").value,
-idade: $("perfilIdade").value,
-altura: $("perfilAltura").value,
-peso: $("perfilPeso").value,
-tel: $("perfilTel").value,
-email: $("perfilEmail").value,
-insta: $("perfilInsta").value,
-foto: localStorage.fotoPerfil || ""
-};
-
-localStorage.perfilCompleto = JSON.stringify(perfil);
-
-$("nomeExibido").innerText = perfil.nome || "Seu nome";
-
-alert("Perfil salvo 💖");
-}
-
-function carregarPerfilCompleto(){
-
-if(!$("perfilNome")) return;
-
-let perfil = JSON.parse(localStorage.perfilCompleto || "{}");
-
-$("perfilNome").value = perfil.nome || "";
-$("perfilIdade").value = perfil.idade || "";
-$("perfilAltura").value = perfil.altura || "";
-$("perfilPeso").value = perfil.peso || "";
-$("perfilTel").value = perfil.tel || "";
-$("perfilEmail").value = perfil.email || "";
-$("perfilInsta").value = perfil.insta || "";
-
-if(perfil.nome){
-$("nomeExibido").innerText = perfil.nome;
-}
-
-if(perfil.foto){
-$("fotoPerfil").src = perfil.foto;
-}
-}
-
-/* FOTO PERFIL */
-
-function salvarFoto(e){
-
-let file = e.target.files[0];
-if(!file) return;
-
-let reader = new FileReader();
-
-reader.onload = function(){
-
-localStorage.fotoPerfil = reader.result;
-$("fotoPerfil").src = reader.result;
-
-};
-
-reader.readAsDataURL(file);
-}
-
-/* ===== EVOLUÇÃO ===== */
-
-function salvarEvolucao(e){
-
-let file = e.target.files[0];
-if(!file) return;
-
-let reader = new FileReader();
-
-reader.onload = function(){
-
-let lista = JSON.parse(localStorage.evolucao || "[]");
-lista.unshift(reader.result);
-
-localStorage.evolucao = JSON.stringify(lista);
-carregarEvolucao();
-
-};
-
-reader.readAsDataURL(file);
-}
-
-function carregarEvolucao(){
-
-let box = $("galeriaEvolucao");
-if(!box) return;
-
-let lista = JSON.parse(localStorage.evolucao || "[]");
-
-let html="";
-
-lista.forEach(img=>{
-html += `<img src="${img}" onclick="verImagem('${img}')">`;
-});
-
-box.innerHTML = html;
-}
-
-function verImagem(src){
-let w = window.open("");
-w.document.write(`<img src="${src}" style="width:100%">`);
-}
-
-/* ===== PERFIL ===== */
-
-function carregarPerfil(){
-
-  let dados = localStorage.perfil;
-
-  if(!dados) return;
-
-  let p = JSON.parse(dados);
-
-  document.getElementById("nomePerfil").value = p.nome || "";
-  document.getElementById("idadePerfil").value = p.idade || "";
-  document.getElementById("alturaPerfil").value = p.altura || "";
-  document.getElementById("pesoPerfil").value = p.peso || "";
-  document.getElementById("telPerfil").value = p.telefone || "";
-  document.getElementById("emailPerfil").value = p.email || "";
-  document.getElementById("instaPerfil").value = p.instagram || "";
-  document.getElementById("bioPerfil").value = p.bio || "";
-
-  if(p.foto && document.getElementById("fotoPerfilPreview")){
-    document.getElementById("fotoPerfilPreview").src = p.foto;
-  }
-
-}
-
-document.addEventListener("DOMContentLoaded", ()=>{
-  carregarPerfil();
-});
-
-/* FOTO DE PERFIL */
-
-function mudarFotoPerfil(input){
-
-  let file = input.files[0];
-
-  if(!file) return;
-
-  let reader = new FileReader();
-
-  reader.onload = function(e){
-
-    let img = document.getElementById("fotoPerfilPreview");
-
-    img.src = e.target.result;
-
-  };
-
-  reader.readAsDataURL(file);
-
-}
-
-/* ===== MODO ESCURO ===== */
-
-function toggleDark(){
-
-  let chk = document.getElementById("modoEscuro");
-
-  if(chk.checked){
-    document.body.classList.add("dark");
-    localStorage.tema = "dark";
-  }else{
-    document.body.classList.remove("dark");
-    localStorage.tema = "light";
-  }
-
-}
-
-
-/* CARREGAR TEMA */
-
-document.addEventListener("DOMContentLoaded", ()=>{
-
-  carregarTema();
-
-});
-
-  if(localStorage.tema === "dark"){
-
-    document.body.classList.add("dark");
-
-    let chk = document.getElementById("modoEscuro");
-
-    if(chk) chk.checked = true;
-  }
-
-}
-
-carregarTema();
