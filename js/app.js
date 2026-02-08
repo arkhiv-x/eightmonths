@@ -466,3 +466,54 @@ box.innerHTML = html || "<p>Nenhum registro ainda 🌱</p>";
 }
 
 mostrarComidas();
+
+/* ÁGUA */
+
+function salvarAgua(){
+
+let v = document.getElementById("aguaInput").value;
+
+if(!v){
+alert("Digite quantos copos bebeu 💧");
+return;
+}
+
+let hoje = new Date().toLocaleDateString();
+
+let lista = JSON.parse(localStorage.agua || "{}");
+
+lista[hoje] = v;
+
+localStorage.agua = JSON.stringify(lista);
+
+mostrarAgua();
+
+alert("Hidratação registrada 💙");
+
+}
+
+function mostrarAgua(){
+
+let box = document.getElementById("aguaStatus");
+
+if(!box) return;
+
+let hoje = new Date().toLocaleDateString();
+
+let lista = JSON.parse(localStorage.agua || "{}");
+
+if(lista[hoje]){
+
+box.innerText =
+"Hoje: " + lista[hoje] + " copos 💧";
+
+}else{
+
+box.innerText =
+"Hoje ainda não registrado 🌱";
+
+}
+
+}
+
+mostrarAgua();
