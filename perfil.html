@@ -58,8 +58,6 @@ Alterar
 
 </div>
 
-<h2 id="nomeExibido">Seu nome</h2>
-
 </div>
 
 <!-- DADOS -->
@@ -94,31 +92,15 @@ Alterar
 
 </div>
 
-<!-- EVOLUÇÃO -->
 <div class="card">
 
 <h3>Evolução</h3>
 
-<input type="file"
-accept="image/*"
-onchange="salvarEvolucao(event)">
+<div class="add-evolucao" onclick="document.getElementById('inputEvo').click()">
++
+<input type="file" id="inputEvo" accept="image/*" onchange="salvarEvolucao(event)">
+</div>
 
 <div id="galeriaEvolucao" class="galeria"></div>
 
 </div>
-
-<!-- BOTÃO FINAL -->
-<div class="card center">
-
-<button class="btn-grande"
-onclick="salvarPerfilCompleto()">
-Salvar Perfil
-</button>
-
-</div>
-
-</div>
-
-<script src="js/app.js"></script>
-</body>
-</html>
