@@ -305,3 +305,99 @@ feito.checked = false;
 alert("Treino registrado 💪💕");
 
 }
+
+/* CAMINHADA */
+
+let walkStart = null;
+let walkTimer = null;
+
+
+function iniciarWalk(){
+
+if(walkTimer) return;
+
+walkStart = Date.now();
+
+walkTimer = setInterval(atualizarWalk,1000);
+
+}
+
+
+function atualizarWalk(){
+
+let agora = Date.now();
+
+let diff = agora - walkStart;
+
+let s = Math.floor(diff/1000)%60;
+let m = Math.floor(diff/60000)%60;
+let h = Math.floor(diff/3600000);
+
+let t =
+String(h).padStart(2,"0")+":"+
+String(m).padStart(2,"0")+":"+
+String(s).padStart(2,"0");
+
+let box = document.getElementById("tempoWalk");
+
+if(box) box.innerText = t;
+
+}
+
+
+function encerrarWalk(){
+
+if(!walkTimer){
+alert("Inicie primeiro 💖");
+return;
+}
+
+clearInterval(walkTimer);
+walkTimer = null;
+
+let tempo = document.getElementById("tempoWalk").innerText;
+
+let lista = JSON.parse(localStorage.walks || "[]");
+
+lista.unshift({
+data: new Date().toLocaleDateString(),
+hora: new Date().toLocaleTimeString(),
+tempo: tempo
+});
+
+localStorage.walks = JSON.stringify(lista);
+
+document.getElementById("tempoWalk").innerText="00:00:00";
+
+mostrarWalk();
+
+alert("Caminhada salva 🚶‍♀️💕");
+
+}
+
+
+function mostrarWalk(){
+
+let box = document.getElementById("listaWalk");
+
+if(!box) return;
+
+let lista = JSON.parse(localStorage.walks || "[]");
+
+let html = "";
+
+lista.forEach(i=>{
+
+html+=`
+<p>
+<b>${i.data}</b> • ${i.tempo}
+</p>
+`;
+
+});
+
+box.innerHTML = html || "<p>Nenhuma caminhada ainda 🌱</p>";
+
+}
+
+mostrarWalk();
