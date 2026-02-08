@@ -280,3 +280,23 @@ margin-bottom:5px;
 margin:0;
 line-height:1.4;
 }
+
+/* ===== AJUSTE TREINOS ===== */
+
+.card h4{
+margin-top:18px;
+margin-bottom:8px;
+}
+
+.card ul{
+padding-left:20px;
+margin-bottom:15px;
+}
+
+.card li{
+margin-bottom:6px;
+}
+
+.card p{
+margin-bottom:12px;
+}
