@@ -515,3 +515,72 @@ function limparCaminhada(){ limpar("walks","Apagar caminhadas?"); }
 function limparComida(){ limpar("comidas","Apagar alimentação?"); }
 function limparChecklist(){ limpar("checks","Apagar checklist?"); }
 function limparAgua(){ limpar("agua","Apagar água?"); }
+
+/* ================= CONFIG ================= */
+
+function setTema(t){
+
+  localStorage.tema = t;
+
+  aplicarTema();
+}
+
+function aplicarTema(){
+
+  let tema = localStorage.tema || "claro";
+
+  if(tema==="escuro"){
+
+    document.body.classList.add("dark");
+
+  }else{
+
+    document.body.classList.remove("dark");
+
+  }
+}
+
+aplicarTema();
+
+
+function salvarPerfil(){
+
+  let nome = $("nomePerfil")?.value;
+  let altura = $("alturaPerfil")?.value;
+  let meta = $("metaPerfil")?.value;
+
+  let perfil = {
+    nome,
+    altura,
+    meta
+  };
+
+  localStorage.perfil = JSON.stringify(perfil);
+
+  alert("Perfil salvo 💖");
+}
+
+function carregarPerfil(){
+
+  if(!$("nomePerfil")) return;
+
+  let perfil = JSON.parse(localStorage.perfil || "{}");
+
+  $("nomePerfil").value = perfil.nome || "";
+  $("alturaPerfil").value = perfil.altura || "";
+  $("metaPerfil").value = perfil.meta || "";
+}
+
+carregarPerfil();
+
+
+function limparTudo(){
+
+  if(!confirm("Apagar TODOS os dados? 😢")) return;
+
+  localStorage.clear();
+
+  alert("Tudo limpo.");
+
+  location.href="index.html";
+}
