@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Caminhada - Em Oito Meses</title>
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<!-- MENU -->
+<div class="menu" id="menu">
+
+<h3>Em Oito Meses</h3>
+
+<a href="inicio.html">🏠 Início</a>
+<a href="peso.html">⚖️ Peso</a>
+<a href="diario.html">📝 Diário</a>
+<a href="treino.html">🏋️ Treinos</a>
+<a href="caminhada.html">🚶 Caminhada</a>
+<a href="alimentacao.html">🥗 Alimentação</a>
+
+<hr>
+
+<a onclick="logout()">🚪 Sair</a>
+
+</div>
+
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
+
+<!-- CONTEÚDO -->
+<div class="page">
+
+<!-- TOPO -->
+<div class="topo">
+<span onclick="openMenu()">☰</span>
+<b>Caminhada</b>
+</div>
+
+
+<!-- CRONÔMETRO -->
+<div class="card center">
+
+<h3>⏱️ Tempo</h3>
+
+<div id="tempoWalk" class="tempo">
+00:00:00
+</div>
+
+<div class="botoes-walk">
+
+<button onclick="iniciarWalk()">Iniciar</button>
+<button onclick="encerrarWalk()">Encerrar</button>
+
+</div>
+
+</div>
+
+
+<!-- HISTÓRICO -->
+<div class="card">
+
+<h3>📖 Histórico</h3>
+
+<div id="listaWalk"></div>
+
+</div>
+
+
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
