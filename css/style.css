@@ -441,3 +441,21 @@ border-radius:8px;
 object-fit:cover;
 height:110px;
 }
+
+.add-evolucao{
+width:100%;
+height:120px;
+border:2px dashed #b76e79;
+border-radius:12px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:40px;
+color:#b76e79;
+cursor:pointer;
+margin-bottom:12px;
+}
+
+.add-evolucao input{
+display:none;
+}
