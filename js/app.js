@@ -833,3 +833,37 @@ function mudarFotoPerfil(input){
   reader.readAsDataURL(file);
 
 }
+
+/* ===== MODO ESCURO ===== */
+
+function toggleDark(){
+
+  let chk = document.getElementById("modoEscuro");
+
+  if(chk.checked){
+    document.body.classList.add("dark");
+    localStorage.tema = "dark";
+  }else{
+    document.body.classList.remove("dark");
+    localStorage.tema = "light";
+  }
+
+}
+
+
+/* CARREGAR TEMA */
+
+function carregarTema(){
+
+  if(localStorage.tema === "dark"){
+
+    document.body.classList.add("dark");
+
+    let chk = document.getElementById("modoEscuro");
+
+    if(chk) chk.checked = true;
+  }
+
+}
+
+carregarTema();
