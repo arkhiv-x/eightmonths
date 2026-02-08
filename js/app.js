@@ -1,6 +1,6 @@
 /* ===== ELEMENTOS ===== */
 
-function byld(id){
+function byId(id){
   return document.getElementById(id);
 }
 
@@ -11,9 +11,9 @@ const frases = [
   "Nada muda se eu não mudar."
 ];
 
-if($("frase")){
+if(byId("frase")){
   let f = localStorage.frase || 0;
-  $("frase").innerText = frases[f];
+  byId("frase").innerText = frases[f];
   localStorage.frase = (Number(f)+1)%2;
 }
 
@@ -21,8 +21,8 @@ if($("frase")){
 
 function login(){
 
-let u = $("user").value;
-let p = $("pass").value;
+let u = byId("user").value;
+let p = byId("pass").value;
 
 if(u==="Vitória" && p==="1997"){
 
@@ -31,7 +31,7 @@ location.href="inicio.html";
 
 }else{
 
-$("erro").innerText="Dados incorretos";
+byId("erro").innerText="Dados incorretos";
 
 }
 
@@ -58,13 +58,13 @@ location.href="index.html";
 /* ===== MENU ===== */
 
 function openMenu(){
-  $("menu").classList.add("open");
-  $("overlay").classList.add("show");
+  byId("menu").classList.add("open");
+  byId("overlay").classList.add("show");
 }
 
 function closeMenu(){
-  $("menu").classList.remove("open");
-  $("overlay").classList.remove("show");
+  byId("menu").classList.remove("open");
+  byId("overlay").classList.remove("show");
 }
 
 /* ===== CHECKLIST ===== */
@@ -75,10 +75,10 @@ let arr = JSON.parse(localStorage.checks || "[]");
 
 arr.push({
 data: new Date().toLocaleDateString(),
-c1: $("c1").checked,
-c2: $("c2").checked,
-c3: $("c3").checked,
-c4: $("c4").checked
+c1: byId("c1").checked,
+c2: byId("c2").checked,
+c3: byId("c3").checked,
+c4: byId("c4").checked
 });
 
 localStorage.checks = JSON.stringify(arr);
@@ -96,8 +96,8 @@ let now = new Date();
 
 let d = Math.floor((now-start)/86400000)+1;
 
-if($("contador")){
-$("contador").innerText = "Dia "+d+" de 120";
+if(byId("contador")){
+byId("contador").innerText = "Dia "+d+" de 120";
 }
 
 }
@@ -117,7 +117,7 @@ let mes = hoje.getMonth();
 let primeiro = new Date(ano,mes,1).getDay();
 let ultimo = new Date(ano,mes+1,0).getDate();
 
-let box = $("calendario");
+let box = byId("calendario");
 
 if(!box) return;
 
@@ -148,7 +148,7 @@ gerarCalendario();
 
 function salvarPeso(){
 
-let v = $("pesoInput").value;
+let v = byId("pesoInput").value;
 
 if(!v) return;
 
@@ -161,7 +161,7 @@ peso:v
 
 localStorage.pesos = JSON.stringify(lista);
 
-$("pesoInput").value="";
+byId("pesoInput").value="";
 
 carregarPesos();
 
@@ -171,7 +171,7 @@ alert("Peso salvo 💖");
 
 function carregarPesos(){
 
-let box = $("listaPeso");
+let box = byId("listaPeso");
 
 if(!box) return;
 
@@ -194,7 +194,7 @@ carregarPesos();
 
 function salvarDiario(){
 
-let txt = $("diarioTexto").value;
+let txt = byId("diarioTexto").value;
 
 if(!txt.trim()){
 alert("Escreva algo 💖");
@@ -213,7 +213,7 @@ hora:agora.toLocaleTimeString()
 
 localStorage.diario = JSON.stringify(lista);
 
-$("diarioTexto").value="";
+byId("diarioTexto").value="";
 
 mostrarDiario();
 
@@ -223,7 +223,7 @@ alert("Salvo 💕");
 
 function mostrarDiario(){
 
-let box = $("listaDiario");
+let box = byId("listaDiario");
 
 if(!box) return;
 
@@ -252,7 +252,7 @@ mostrarDiario();
 
 function salvarDiarioHome(){
 
-let txt = $("diarioHome").value;
+let txt = byId("diarioHome").value;
 
 if(!txt.trim()){
 alert("Escreva algo 💖");
@@ -271,7 +271,7 @@ hora:agora.toLocaleTimeString()
 
 localStorage.diario = JSON.stringify(lista);
 
-$("diarioHome").value="";
+byId("diarioHome").value="";
 
 alert("Salvo 💕");
 
@@ -281,7 +281,7 @@ alert("Salvo 💕");
 
 function registrarTreino(){
 
-let chk = $("treinoFeito");
+let chk = byId("treinoFeito");
 
 if(!chk.checked){
 alert("Marque primeiro 💖");
@@ -331,8 +331,8 @@ String(h).padStart(2,"0")+":"+
 String(m).padStart(2,"0")+":"+
 String(s).padStart(2,"0");
 
-if($("tempoWalk")){
-$("tempoWalk").innerText=t;
+if(byId("tempoWalk")){
+byId("tempoWalk").innerText=t;
 }
 
 }
@@ -347,7 +347,7 @@ return;
 clearInterval(walkTimer);
 walkTimer=null;
 
-let tempo = $("tempoWalk").innerText;
+let tempo = byId("tempoWalk").innerText;
 
 let lista = JSON.parse(localStorage.walks || "[]");
 
@@ -359,7 +359,7 @@ tempo:tempo
 
 localStorage.walks = JSON.stringify(lista);
 
-$("tempoWalk").innerText="00:00:00";
+byId("tempoWalk").innerText="00:00:00";
 
 mostrarWalk();
 
@@ -369,7 +369,7 @@ alert("Caminhada salva 🚶‍♀️💕");
 
 function mostrarWalk(){
 
-let box = $("listaWalk");
+let box = byId("listaWalk");
 
 if(!box) return;
 
@@ -393,8 +393,8 @@ mostrarWalk();
 
 function salvarComida(){
 
-let status = $("statusComida").value;
-let obs = $("obsComida").value;
+let status = byId("statusComida").value;
+let obs = byId("obsComida").value;
 
 if(!status){
 alert("Selecione 💖");
@@ -411,8 +411,8 @@ obs:obs
 
 localStorage.comidas = JSON.stringify(lista);
 
-$("statusComida").value="";
-$("obsComida").value="";
+byId("statusComida").value="";
+byId("obsComida").value="";
 
 mostrarComidas();
 
@@ -422,7 +422,7 @@ alert("Salvo 🥗💕");
 
 function mostrarComidas(){
 
-let box = $("listaComida");
+let box = byId("listaComida");
 
 if(!box) return;
 
@@ -457,7 +457,7 @@ mostrarComidas();
 
 function salvarAgua(){
 
-let v = $("aguaInput").value;
+let v = byId("aguaInput").value;
 
 if(!v){
 alert("Digite 💧");
@@ -480,7 +480,7 @@ alert("Salvo 💙");
 
 function mostrarAgua(){
 
-let box = $("aguaStatus");
+let box = byId("aguaStatus");
 
 if(!box) return;
 
@@ -498,7 +498,7 @@ box.innerText="Ainda não registrado 🌱";
 
 mostrarAgua();
 
-/* ===== LIXEIRA GERAL ===== */
+/* ===== LIXEIRAS ===== */
 
 function limparDiario(){
 if(confirm("Apagar todo o diário?")){
