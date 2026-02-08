@@ -214,3 +214,62 @@ box.innerHTML+=
 }
 
 carregarPesos();
+
+/* DIÁRIO */
+
+function salvarDiario(){
+
+let texto = document.getElementById("diarioTexto").value;
+
+if(texto.trim()===""){
+alert("Escreva algo primeiro 💖");
+return;
+}
+
+let lista = JSON.parse(localStorage.diario || "[]");
+
+let agora = new Date();
+
+lista.unshift({
+texto: texto,
+data: agora.toLocaleDateString(),
+hora: agora.toLocaleTimeString()
+});
+
+localStorage.diario = JSON.stringify(lista);
+
+document.getElementById("diarioTexto").value = "";
+
+mostrarDiario();
+
+alert("Salvo com carinho 💕");
+}
+
+
+function mostrarDiario(){
+
+let lista = JSON.parse(localStorage.diario || "[]");
+
+let html = "";
+
+lista.forEach(item=>{
+
+html += `
+<div class="diario-item">
+
+<small>${item.data} • ${item.hora}</small>
+
+<p>${item.texto}</p>
+
+</div>
+`;
+
+});
+
+if(document.getElementById("listaDiario")){
+document.getElementById("listaDiario").innerHTML = html || "<p>Nenhum registro ainda 🌱</p>";
+}
+
+}
+
+mostrarDiario();
