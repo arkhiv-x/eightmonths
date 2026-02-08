@@ -499,3 +499,59 @@ box.innerText="Ainda não registrado 🌱";
 }
 
 mostrarAgua();
+
+/* ===== LIXEIRA GERAL ===== */
+
+function limparDiario(){
+if(confirm("Apagar todo o diário?")){
+localStorage.removeItem("diario");
+mostrarDiario();
+alert("Diário limpo 💕");
+}
+}
+
+function limparPeso(){
+if(confirm("Apagar histórico de peso?")){
+localStorage.removeItem("pesos");
+carregarPesos();
+alert("Peso limpo ⚖️");
+}
+}
+
+function limparTreinos(){
+if(confirm("Apagar registros de treino?")){
+localStorage.removeItem("treinos");
+alert("Treinos limpos 💪");
+}
+}
+
+function limparCaminhada(){
+if(confirm("Apagar caminhadas?")){
+localStorage.removeItem("walks");
+mostrarWalk();
+alert("Caminhadas limpas 🚶‍♀️");
+}
+}
+
+function limparComida(){
+if(confirm("Apagar histórico alimentar?")){
+localStorage.removeItem("comidas");
+mostrarComidas();
+alert("Alimentação limpa 🥗");
+}
+}
+
+function limparChecklist(){
+if(confirm("Apagar checklist?")){
+localStorage.removeItem("checks");
+alert("Checklist limpo ✅");
+}
+}
+
+function limparAgua(){
+if(confirm("Apagar registros de água?")){
+localStorage.removeItem("agua");
+mostrarAgua();
+alert("Água limpa 💧");
+}
+}
