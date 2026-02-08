@@ -401,3 +401,68 @@ box.innerHTML = html || "<p>Nenhuma caminhada ainda 🌱</p>";
 }
 
 mostrarWalk();
+
+/* ALIMENTAÇÃO */
+
+function salvarComida(){
+
+let status = document.getElementById("statusComida").value;
+let obs = document.getElementById("obsComida").value;
+
+if(!status){
+alert("Selecione uma opção 💖");
+return;
+}
+
+let lista = JSON.parse(localStorage.comidas || "[]");
+
+lista.unshift({
+data: new Date().toLocaleDateString(),
+status: status,
+obs: obs
+});
+
+localStorage.comidas = JSON.stringify(lista);
+
+document.getElementById("statusComida").value="";
+document.getElementById("obsComida").value="";
+
+mostrarComidas();
+
+alert("Registro salvo 🥗💕");
+
+}
+
+
+function mostrarComidas(){
+
+let box = document.getElementById("listaComida");
+
+if(!box) return;
+
+let lista = JSON.parse(localStorage.comidas || "[]");
+
+let html = "";
+
+lista.forEach(i=>{
+
+let emoji = "💛";
+
+if(i.status==="ok") emoji="✅";
+if(i.status==="adaptado") emoji="⚠️";
+if(i.status==="fora") emoji="❌";
+
+html+=`
+<p>
+<b>${i.data}</b> ${emoji}<br>
+${i.obs || ""}
+</p>
+`;
+
+});
+
+box.innerHTML = html || "<p>Nenhum registro ainda 🌱</p>";
+
+}
+
+mostrarComidas();
