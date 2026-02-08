@@ -53,7 +53,6 @@ Alterar
 <input type="file" accept="image/*" onchange="salvarFoto(event)">
 </label>
 
-<h3 id="nomeExibido">Seu nome</h3>
 
 </div>
 
@@ -80,11 +79,13 @@ Alterar
 
 <h3>Dados Pessoais</h3>
 
+<div class="perfil-dados">
+
 <label>Nome</label>
 <input id="perfilNome">
 
 <label>Idade</label>
-<input id="perfilIdade" type="number">
+<input id="perfilIdade">
 
 <label>Altura</label>
 <input id="perfilAltura">
@@ -93,7 +94,7 @@ Alterar
 <input id="perfilPeso">
 
 <label>Telefone</label>
-<input id="perfilTel">
+<input id="perfilTelefone">
 
 <label>Email</label>
 <input id="perfilEmail">
@@ -102,18 +103,21 @@ Alterar
 <input id="perfilInsta">
 
 <label>Bio</label>
-<textarea id="perfilBio" placeholder="Fale sobre você..."></textarea>
+<textarea id="perfilBio"
+placeholder="Fale sobre você..."></textarea>
+
+</div>
 
 </div>
 
 
 <!-- BOTÃO -->
 
-<div class="card center">
-
-<button onclick="salvarPerfilCompleto()" class="btn-center">
-Salvar Perfil
-</button>
+<div class="center">
+  <button class="btn-center" onclick="salvarPerfil()">
+    Salvar Perfil
+  </button>
+</div>
 
 </div>
 
