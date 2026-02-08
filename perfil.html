@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Perfil - Em Oito Meses</title>
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body onload="aplicarTema()">
+
+<!-- MENU -->
+<div class="menu" id="menu">
+
+<h3>Em Oito Meses</h3>
+
+<a href="inicio.html">🏠 Início</a>
+<a href="peso.html">⚖️ Peso</a>
+<a href="diario.html">📝 Diário</a>
+<a href="treino.html">🏋️ Treinos</a>
+<a href="caminhada.html">🚶 Caminhada</a>
+<a href="alimentacao.html">🥗 Alimentação</a>
+<a href="perfil.html">👤 Perfil</a>
+<a href="config.html">⚙️ Configurações</a>
+
+<hr>
+
+<a onclick="logout()">🚪 Sair</a>
+
+</div>
+
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
+<!-- CONTEÚDO -->
+<div class="page">
+
+<!-- TOPO -->
+<div class="topo">
+<span onclick="openMenu()">☰</span>
+<b>Meu Perfil</b>
+</div>
+
+<!-- FOTO -->
+<div class="card center">
+
+<h3>📸 Minha Foto</h3>
+
+<img id="fotoPerfil"
+src="img/avatar.png"
+class="foto-perfil">
+
+<input type="file"
+accept="image/*"
+onchange="salvarFoto(event)">
+
+</div>
+
+<!-- DADOS -->
+<div class="card">
+
+<h3>📋 Meus Dados</h3>
+
+<input id="perfilNome" placeholder="Nome">
+
+<input id="perfilIdade" placeholder="Idade">
+
+<input id="perfilAltura" placeholder="Altura (ex: 1.65)">
+
+<input id="perfilPeso" placeholder="Peso atual">
+
+<input id="perfilTel" placeholder="Telefone (opcional)">
+
+<button onclick="salvarPerfilCompleto()">
+Salvar Perfil
+</button>
+
+</div>
+
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
