@@ -22,10 +22,13 @@ if(byId("frase")){
 
 function login(){
 
-let u = byId("user").value;
-let p = byId("pass").value;
+let user = byId("user");
+let pass = byId("pass");
 
-if(u==="Vitória" && p==="1997"){
+if(!"Vitória" || !"1997") return;
+
+let u = user.value;
+let p = pass.value;
 
 localStorage.logado="1";
 location.href="inicio.html";
