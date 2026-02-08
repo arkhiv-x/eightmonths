@@ -45,56 +45,78 @@
 <!-- CARDÁPIO -->
 <div class="card">
 
-<h3>📅 Cardápio da Semana</h3>
+<h3>📅 Cardápio Semanal</h3>
 
+<!-- CAFÉ -->
 <div class="refeicao">
+<b>☀️ Café da Manhã</b><br>
+• Ovo mexido + pão<br>
+• Banana ou maçã<br>
+• Café ou leite
+</div>
 
-<b>Segunda</b><br>
-Frango + Arroz + Salada
+<!-- ALMOÇO -->
+<div class="refeicao">
+<b>🍱 Almoço (Marmita)</b><br>
+• Frango grelhado<br>
+• Arroz + feijão<br>
+• Salada (alface, tomate, cenoura)
+</div>
+
+<!-- TARDE -->
+<div class="refeicao">
+<b>🍎 Café da Tarde / Pré-Treino</b><br>
+• Iogurte ou ovo<br>
+• Fruta<br>
+• Castanha (se tiver)
+</div>
+
+<!-- JANTAR -->
+<div class="refeicao">
+<b>🌙 Jantar</b><br>
+• Frango / Ovo / Atum<br>
+• Arroz ou massa leve<br>
+• Salada
+</div>
+
+<!-- SALADAS -->
+<div class="refeicao">
+<b>🥗 Saladas Preferidas</b><br>
+• Alface + tomate<br>
+• Repolho + cenoura<br>
+• Pepino + limão
+</div>
+
+<!-- FRUTAS -->
+<div class="refeicao">
+<b>🍌 Frutas</b><br>
+• Banana<br>
+• Maçã<br>
+• Mamão<br>
+• Laranja
+</div>
 
 </div>
 
-<div class="refeicao">
+  <!-- ÁGUA -->
+<div class="card">
 
-<b>Terça</b><br>
-Ovo + Massa + Legumes
+<h3>💧 Meta de Água</h3>
 
-</div>
+<p>Copos bebidos hoje:</p>
 
-<div class="refeicao">
+<input type="number"
+id="aguaInput"
+min="0"
+max="20"
+placeholder="Ex: 8">
 
-<b>Quarta</b><br>
-Frango + Feijão + Arroz
+<button class="btn-center"
+onclick="salvarAgua()">
+Salvar Água
+</button>
 
-</div>
-
-<div class="refeicao">
-
-<b>Quinta</b><br>
-Panqueca de Ovo + Salada
-
-</div>
-
-<div class="refeicao">
-
-<b>Sexta</b><br>
-Frango Cremoso + Arroz
-
-</div>
-
-<div class="refeicao">
-
-<b>Sábado</b><br>
-Livre Consciente 💛
-
-</div>
-
-<div class="refeicao">
-
-<b>Domingo</b><br>
-Comida da Família 🍲
-
-</div>
+<p id="aguaStatus"></p>
 
 </div>
 
