@@ -585,60 +585,76 @@ function limparTudo(){
   location.href="index.html";
 }
 
-/* ================= PERFIL ================= */
+/* ===== PERFIL ===== */
 
 function salvarPerfilCompleto(){
 
-  let perfil = {
-    nome: $("perfilNome").value,
-    idade: $("perfilIdade").value,
-    altura: $("perfilAltura").value,
-    peso: $("perfilPeso").value,
-    tel: $("perfilTel").value,
-    foto: localStorage.fotoPerfil || ""
-  };
+let perfil = {
+nome: $("perfilNome").value,
+idade: $("perfilIdade").value,
+altura: $("perfilAltura").value,
+peso: $("perfilPeso").value,
+tel: $("perfilTel").value,
+email: $("perfilEmail").value,
+insta: $("perfilInsta").value,
+bio: $("perfilBio").value,
+foto: $("fotoPerfil").src || "",
+evolucao: JSON.parse(localStorage.evolucao || "[]")
+};
 
-  localStorage.perfilCompleto = JSON.stringify(perfil);
+localStorage.perfilCompleto = JSON.stringify(perfil);
 
-  alert("Perfil salvo 💖");
+$("nomeExibido").innerText = perfil.nome || "Seu nome";
+
+alert("Perfil salvo com sucesso 💗");
 }
 
 function carregarPerfilCompleto(){
 
-  if(!$("perfilNome")) return;
+let perfil = JSON.parse(localStorage.perfilCompleto || "{}");
+if(!perfil) return;
 
-  let perfil = JSON.parse(localStorage.perfilCompleto || "{}");
+if($("perfilNome")){
 
-  $("perfilNome").value = perfil.nome || "";
-  $("perfilIdade").value = perfil.idade || "";
-  $("perfilAltura").value = perfil.altura || "";
-  $("perfilPeso").value = perfil.peso || "";
-  $("perfilTel").value = perfil.tel || "";
+$("perfilNome").value = perfil.nome || "";
+$("perfilIdade").value = perfil.idade || "";
+$("perfilAltura").value = perfil.altura || "";
+$("perfilPeso").value = perfil.peso || "";
+$("perfilTel").value = perfil.tel || "";
+$("perfilEmail").value = perfil.email || "";
+$("perfilInsta").value = perfil.insta || "";
+$("perfilBio").value = perfil.bio || "";
 
-  if(perfil.foto){
-    $("fotoPerfil").src = perfil.foto;
-  }
+if(perfil.nome){
+$("nomeExibido").innerText = perfil.nome;
 }
 
-carregarPerfilCompleto();
+if(perfil.foto){
+$("fotoPerfil").src = perfil.foto;
+}
+}
 
+carregarEvolucao();
+}
+
+/* FOTO */
 
 function salvarFoto(e){
 
-  let file = e.target.files[0];
+let file = e.target.files[0];
+if(!file) return;
 
-  if(!file) return;
+let reader = new FileReader();
 
-  let reader = new FileReader();
+reader.onload = function(){
+$("fotoPerfil").src = reader.result;
 
-  reader.onload = function(){
+let perfil = JSON.parse(localStorage.perfilCompleto || "{}");
+perfil.foto = reader.result;
+localStorage.perfilCompleto = JSON.stringify(perfil);
+};
 
-    localStorage.fotoPerfil = reader.result;
-
-    $("fotoPerfil").src = reader.result;
-  };
-
-  reader.readAsDataURL(file);
+reader.readAsDataURL(file);
 }
 
 /* ===== PERFIL COMPLETO ===== */
@@ -717,11 +733,9 @@ let reader = new FileReader();
 reader.onload = function(){
 
 let lista = JSON.parse(localStorage.evolucao || "[]");
-
 lista.unshift(reader.result);
 
 localStorage.evolucao = JSON.stringify(lista);
-
 carregarEvolucao();
 
 };
@@ -736,13 +750,16 @@ if(!box) return;
 
 let lista = JSON.parse(localStorage.evolucao || "[]");
 
-let html = "";
+let html="";
 
 lista.forEach(img=>{
-
-html += `<img src="${img}">`;
-
+html += `<img src="${img}" onclick="verImagem('${img}')">`;
 });
 
 box.innerHTML = html;
+}
+
+function verImagem(src){
+let w = window.open("");
+w.document.write(`<img src="${src}" style="width:100%">`);
 }
