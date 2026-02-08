@@ -273,17 +273,49 @@ function registrarTreino(){
 
   let lista = JSON.parse(localStorage.treinos || "[]");
 
+  let agora = new Date();
+
   lista.unshift({
-    data:new Date().toLocaleDateString(),
-    hora:new Date().toLocaleTimeString()
+    data: agora.toLocaleDateString(),
+    hora: agora.toLocaleTimeString()
   });
 
   localStorage.treinos = JSON.stringify(lista);
 
   chk.checked=false;
 
+  mostrarTreinos();
+
   alert("Treino salvo 💪💕");
 }
+
+
+function mostrarTreinos(){
+
+  let box = $("listaTreinos");
+
+  if(!box) return;
+
+  let lista = JSON.parse(localStorage.treinos || "[]");
+
+  let html = "";
+
+  lista.forEach(i=>{
+
+    html += `
+    <div class="diario-item">
+      <small>${i.data} • ${i.hora}</small>
+      <p>✔️ Treino concluído</p>
+    </div>
+    `;
+
+  });
+
+  box.innerHTML = html || "<p>Nenhum treino ainda 🌱</p>";
+
+}
+
+mostrarTreinos();
 
 /* ================= CAMINHADA ================= */
 
