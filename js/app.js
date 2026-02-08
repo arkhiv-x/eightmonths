@@ -584,3 +584,59 @@ function limparTudo(){
 
   location.href="index.html";
 }
+
+/* ================= PERFIL ================= */
+
+function salvarPerfilCompleto(){
+
+  let perfil = {
+    nome: $("perfilNome").value,
+    idade: $("perfilIdade").value,
+    altura: $("perfilAltura").value,
+    peso: $("perfilPeso").value,
+    tel: $("perfilTel").value,
+    foto: localStorage.fotoPerfil || ""
+  };
+
+  localStorage.perfilCompleto = JSON.stringify(perfil);
+
+  alert("Perfil salvo 💖");
+}
+
+function carregarPerfilCompleto(){
+
+  if(!$("perfilNome")) return;
+
+  let perfil = JSON.parse(localStorage.perfilCompleto || "{}");
+
+  $("perfilNome").value = perfil.nome || "";
+  $("perfilIdade").value = perfil.idade || "";
+  $("perfilAltura").value = perfil.altura || "";
+  $("perfilPeso").value = perfil.peso || "";
+  $("perfilTel").value = perfil.tel || "";
+
+  if(perfil.foto){
+    $("fotoPerfil").src = perfil.foto;
+  }
+}
+
+carregarPerfilCompleto();
+
+
+function salvarFoto(e){
+
+  let file = e.target.files[0];
+
+  if(!file) return;
+
+  let reader = new FileReader();
+
+  reader.onload = function(){
+
+    localStorage.fotoPerfil = reader.result;
+
+    $("fotoPerfil").src = reader.result;
+  };
+
+  reader.readAsDataURL(file);
+}
