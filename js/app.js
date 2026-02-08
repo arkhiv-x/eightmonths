@@ -1,4 +1,3 @@
-alert("JS carregou");
 /* ===== ELEMENTOS ===== */
 
 function byId(id){
@@ -22,9 +21,9 @@ if(byId("frase")){
 
 function login(){
 
-  let user = $("user");
-  let pass = $("pass");
-  let erro = $("erro");
+  let user = byId("user");
+  let pass = byId("pass");
+  let erro = byId("erro");
 
   if(!user || !pass) return;
 
