@@ -763,3 +763,73 @@ function verImagem(src){
 let w = window.open("");
 w.document.write(`<img src="${src}" style="width:100%">`);
 }
+
+/* ===== PERFIL ===== */
+
+function salvarPerfil(){
+
+  let dados = {
+    nome: document.getElementById("perfilNome").value,
+    idade: document.getElementById("perfilIdade").value,
+    altura: document.getElementById("perfilAltura").value,
+    peso: document.getElementById("perfilPeso").value,
+    telefone: document.getElementById("perfilTelefone").value,
+    email: document.getElementById("perfilEmail").value,
+    insta: document.getElementById("perfilInsta").value,
+    bio: document.getElementById("perfilBio").value,
+    foto: document.getElementById("fotoPerfilPreview")?.src || ""
+  };
+
+  localStorage.setItem("perfil", JSON.stringify(dados));
+
+  alert("Perfil salvo 💗");
+}
+
+
+/* CARREGAR PERFIL */
+
+function carregarPerfil(){
+
+  let dados = JSON.parse(localStorage.getItem("perfil"));
+
+  if(!dados) return;
+
+  document.getElementById("perfilNome").value = dados.nome || "";
+  document.getElementById("perfilIdade").value = dados.idade || "";
+  document.getElementById("perfilAltura").value = dados.altura || "";
+  document.getElementById("perfilPeso").value = dados.peso || "";
+  document.getElementById("perfilTelefone").value = dados.telefone || "";
+  document.getElementById("perfilEmail").value = dados.email || "";
+  document.getElementById("perfilInsta").value = dados.insta || "";
+  document.getElementById("perfilBio").value = dados.bio || "";
+
+  if(dados.foto && document.getElementById("fotoPerfilPreview")){
+    document.getElementById("fotoPerfilPreview").src = dados.foto;
+  }
+
+}
+
+carregarPerfil();
+
+
+/* FOTO DE PERFIL */
+
+function mudarFotoPerfil(input){
+
+  let file = input.files[0];
+
+  if(!file) return;
+
+  let reader = new FileReader();
+
+  reader.onload = function(e){
+
+    let img = document.getElementById("fotoPerfilPreview");
+
+    img.src = e.target.result;
+
+  };
+
+  reader.readAsDataURL(file);
+
+}
