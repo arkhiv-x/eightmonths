@@ -300,3 +300,25 @@ margin-bottom:6px;
 .card p{
 margin-bottom:12px;
 }
+
+/* CAMINHADA */
+
+.tempo{
+font-size:32px;
+font-weight:bold;
+margin:15px 0;
+}
+
+.botoes-walk{
+display:flex;
+justify-content:center;
+gap:15px;
+}
+
+.botoes-walk button{
+padding:8px 22px;
+border:none;
+border-radius:8px;
+background:#b76e79;
+color:white;
+}
