@@ -322,3 +322,30 @@ border-radius:8px;
 background:#b76e79;
 color:white;
 }
+
+/* ALIMENTAÇÃO */
+
+.refeicao{
+background:#f9e7ea;
+padding:10px;
+border-radius:10px;
+margin-bottom:8px;
+}
+
+select{
+width:100%;
+padding:10px;
+border-radius:8px;
+border:1px solid #ccc;
+margin-bottom:8px;
+}
+
+#obsComida{
+width:100%;
+min-height:70px;
+padding:8px;
+border-radius:8px;
+border:1px solid #ccc;
+resize:none;
+margin-bottom:10px;
+}
