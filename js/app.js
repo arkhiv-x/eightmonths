@@ -142,29 +142,6 @@ box.appendChild(div);
 
 }
 
-/* DIÁRIO HOME */
-
-function salvarDiarioHome(){
-
-let txt=document.getElementById("diarioHome").value;
-
-if(!txt) return;
-
-let arr=JSON.parse(localStorage.diario||"[]");
-
-arr.push({
-d:new Date().toLocaleString(),
-t:txt
-});
-
-localStorage.diario=JSON.stringify(arr);
-
-document.getElementById("diarioHome").value="";
-
-alert("Salvo 💖");
-
-}
-
 /* INICIAR */
 
 gerarCalendario();
