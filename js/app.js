@@ -22,21 +22,23 @@ if(byId("frase")){
 
 function login(){
 
-let user = byId("user");
-let pass = byId("pass");
+  let user = $("user");
+  let pass = $("pass");
+  let erro = $("erro");
 
-if(!"Vitória" || !"1997") return;
+  if(!user || !pass) return;
 
-let u = user.value;
-let p = pass.value;
+  let u = user.value.trim();
+  let p = pass.value.trim();
 
-localStorage.logado="1";
-location.href="inicio.html";
+  if(u === "Vitória" && p === "1997"){
 
-}else{
+    localStorage.logado = "1";
+    location.href = "inicio.html";
 
-byId("erro").innerText="Dados incorretos";
+  }else{
 
+    erro.innerText = "Dados incorretos";
 }
 
 }
