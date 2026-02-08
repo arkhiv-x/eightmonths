@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Alimentação - Em Oito Meses</title>
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<!-- MENU -->
+<div class="menu" id="menu">
+
+<h3>Em Oito Meses</h3>
+
+<a href="inicio.html">🏠 Início</a>
+<a href="peso.html">⚖️ Peso</a>
+<a href="diario.html">📝 Diário</a>
+<a href="treino.html">🏋️ Treinos</a>
+<a href="caminhada.html">🚶 Caminhada</a>
+<a href="alimentacao.html">🥗 Alimentação</a>
+
+<hr>
+
+<a onclick="logout()">🚪 Sair</a>
+
+</div>
+
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
+
+<!-- CONTEÚDO -->
+<div class="page">
+
+<!-- TOPO -->
+<div class="topo">
+<span onclick="openMenu()">☰</span>
+<b>Alimentação</b>
+</div>
+
+
+<!-- CARDÁPIO -->
+<div class="card">
+
+<h3>📅 Cardápio da Semana</h3>
+
+<div class="refeicao">
+
+<b>Segunda</b><br>
+Frango + Arroz + Salada
+
+</div>
+
+<div class="refeicao">
+
+<b>Terça</b><br>
+Ovo + Massa + Legumes
+
+</div>
+
+<div class="refeicao">
+
+<b>Quarta</b><br>
+Frango + Feijão + Arroz
+
+</div>
+
+<div class="refeicao">
+
+<b>Quinta</b><br>
+Panqueca de Ovo + Salada
+
+</div>
+
+<div class="refeicao">
+
+<b>Sexta</b><br>
+Frango Cremoso + Arroz
+
+</div>
+
+<div class="refeicao">
+
+<b>Sábado</b><br>
+Livre Consciente 💛
+
+</div>
+
+<div class="refeicao">
+
+<b>Domingo</b><br>
+Comida da Família 🍲
+
+</div>
+
+</div>
+
+
+<!-- CONTROLE -->
+<div class="card">
+
+<h3>✅ Como foi hoje?</h3>
+
+<select id="statusComida">
+
+<option value="">Selecione</option>
+<option value="ok">Segui o plano</option>
+<option value="adaptado">Adaptei</option>
+<option value="fora">Fora do plano</option>
+
+</select>
+
+<textarea id="obsComida"
+placeholder="Observações (opcional)"></textarea>
+
+<button class="btn-center"
+onclick="salvarComida()">
+Salvar
+</button>
+
+</div>
+
+
+<!-- HISTÓRICO -->
+<div class="card">
+
+<h3>📖 Histórico Alimentar</h3>
+
+<div id="listaComida"></div>
+
+</div>
+
+
+</div>
+
+<script src="js/app.js"></script>
+
+</body>
+</html>
