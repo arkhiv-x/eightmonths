@@ -238,3 +238,14 @@ padding:8px 22px;
 border-radius:8px;
 font-size:14px;
 }
+
+/* ===== PESO ===== */
+
+#pesoInput{
+width:100%;
+padding:12px;
+border-radius:10px;
+border:1px solid #ccc;
+font-size:15px;
+margin-bottom:10px;
+}
