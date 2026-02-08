@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Perfil - Em Oito Meses</title>
+<title>Meu Perfil</title>
 
 <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body onload="aplicarTema(); carregarPerfilCompleto(); carregarEvolucao()">
+<body>
 
 <!-- MENU -->
 <div class="menu" id="menu">
@@ -17,21 +17,20 @@
 <h3>Em Oito Meses</h3>
 
 <a href="inicio.html">Início</a>
+<a href="perfil.html">Perfil</a>
 <a href="peso.html">Peso</a>
 <a href="diario.html">Diário</a>
 <a href="treino.html">Treinos</a>
 <a href="caminhada.html">Caminhada</a>
 <a href="alimentacao.html">Alimentação</a>
-<a href="perfil.html">Perfil</a>
 <a href="config.html">Configurações</a>
-
 <hr>
 
 <a onclick="logout()">Sair</a>
-
 </div>
 
 <div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
 
 <!-- CONTEÚDO -->
 <div class="page">
@@ -42,36 +41,50 @@
 <b>Meu Perfil</b>
 </div>
 
-<!-- FOTO + NOME -->
+
+<!-- FOTO -->
+
 <div class="card perfil-topo">
 
-<div class="foto-box">
+<img id="fotoPerfil" src="" class="foto-perfil">
 
-<img id="fotoPerfil"
-src="img/avatar.png"
-class="foto-perfil">
-
-<label class="btn-foto">
+<label class="btn-alterar">
 Alterar
 <input type="file" accept="image/*" onchange="salvarFoto(event)">
 </label>
 
-</div>
+<h3 id="nomeExibido">Seu nome</h3>
 
 </div>
+
+
+<!-- EVOLUÇÃO -->
+
+<div class="card">
+
+<h3>Evolução</h3>
+
+<div class="add-evolucao" onclick="document.getElementById('inputEvo').click()">
++
+<input type="file" id="inputEvo" accept="image/*" onchange="salvarEvolucao(event)">
+</div>
+
+<div id="galeriaEvolucao" class="galeria"></div>
+
+</div>
+
 
 <!-- DADOS -->
-<div class="card perfil-dados">
+
+<div class="card">
 
 <h3>Dados Pessoais</h3>
-
-<div class="grupo">
 
 <label>Nome</label>
 <input id="perfilNome">
 
 <label>Idade</label>
-<input id="perfilIdade">
+<input id="perfilIdade" type="number">
 
 <label>Altura</label>
 <input id="perfilAltura">
@@ -88,19 +101,30 @@ Alterar
 <label>Instagram</label>
 <input id="perfilInsta">
 
-</div>
+<label>Bio</label>
+<textarea id="perfilBio" placeholder="Fale sobre você..."></textarea>
 
 </div>
 
-<div class="card">
 
-<h3>Evolução</h3>
+<!-- BOTÃO -->
 
-<div class="add-evolucao" onclick="document.getElementById('inputEvo').click()">
-+
-<input type="file" id="inputEvo" accept="image/*" onchange="salvarEvolucao(event)">
-</div>
+<div class="card center">
 
-<div id="galeriaEvolucao" class="galeria"></div>
+<button onclick="salvarPerfilCompleto()" class="btn-center">
+Salvar Perfil
+</button>
 
 </div>
+
+
+</div>
+
+<script src="js/app.js"></script>
+
+<script>
+carregarPerfilCompleto();
+</script>
+
+</body>
+</html>
