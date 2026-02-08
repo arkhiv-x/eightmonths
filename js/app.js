@@ -168,3 +168,49 @@ alert("Salvo 💖");
 /* INICIAR */
 
 gerarCalendario();
+
+/* ===== PESO ===== */
+
+function salvarPeso(){
+
+let v=document.getElementById("pesoInput").value;
+
+if(!v) return;
+
+let lista=JSON.parse(localStorage.pesos||"[]");
+
+lista.push({
+d:new Date().toLocaleDateString(),
+p:v
+});
+
+localStorage.pesos=JSON.stringify(lista);
+
+document.getElementById("pesoInput").value="";
+
+carregarPesos();
+
+alert("Peso salvo 💖");
+
+}
+
+function carregarPesos(){
+
+let box=document.getElementById("listaPeso");
+
+if(!box) return;
+
+let lista=JSON.parse(localStorage.pesos||"[]");
+
+box.innerHTML="";
+
+lista.slice().reverse().forEach(i=>{
+
+box.innerHTML+=
+`<p><b>${i.d}</b> — ${i.p} kg</p>`;
+
+});
+
+}
+
+carregarPesos();
