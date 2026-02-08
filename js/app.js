@@ -363,9 +363,7 @@ $("tempoWalk").innerText="00:00:00";
 
 mostrarWalk();
 
-alert("Caminhada salva 🚶‍♀️💕
-
-");
+alert("Caminhada salva 🚶‍♀️💕");
 
 }
 
