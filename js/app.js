@@ -273,3 +273,32 @@ document.getElementById("listaDiario").innerHTML = html || "<p>Nenhum registro a
 }
 
 mostrarDiario();
+
+/* DIÁRIO DA HOME */
+
+function salvarDiarioHome(){
+
+let texto = document.getElementById("diarioHome").value;
+
+if(!texto || texto.trim()===""){
+alert("Escreva algo primeiro 💖");
+return;
+}
+
+let lista = JSON.parse(localStorage.diario || "[]");
+
+let agora = new Date();
+
+lista.unshift({
+texto: texto,
+data: agora.toLocaleDateString(),
+hora: agora.toLocaleTimeString()
+});
+
+localStorage.diario = JSON.stringify(lista);
+
+document.getElementById("diarioHome").value = "";
+
+alert("Salvo no diário 💕");
+
+}
