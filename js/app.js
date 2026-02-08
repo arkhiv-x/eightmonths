@@ -279,3 +279,29 @@ document.getElementById("diarioHome").value = "";
 alert("Salvo no diário 💕");
 
 }
+
+/* TREINO */
+
+function registrarTreino(){
+
+let feito = document.getElementById("treinoFeito");
+
+if(!feito.checked){
+alert("Marca quando concluir 💖");
+return;
+}
+
+let lista = JSON.parse(localStorage.treinos || "[]");
+
+lista.push({
+data: new Date().toLocaleDateString(),
+hora: new Date().toLocaleTimeString()
+});
+
+localStorage.treinos = JSON.stringify(lista);
+
+feito.checked = false;
+
+alert("Treino registrado 💪💕");
+
+}
