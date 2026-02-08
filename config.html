@@ -40,12 +40,21 @@
 </div>
 
 <!-- TEMA -->
+<!-- TEMA -->
 <div class="card">
 
-<h3>🎨 Aparência</h3>
+  <h3>Aparência</h3>
 
-<button onclick="setTema('claro')">☀️ Claro</button>
-<button onclick="setTema('escuro')">🌙 Escuro</button>
+  <div style="display:flex;align-items:center;gap:10px;">
+
+    <label class="switch">
+      <input type="checkbox" id="modoEscuro" onchange="toggleDark()">
+      <span class="slider"></span>
+    </label>
+
+    <span>Modo escuro</span>
+
+  </div>
 
 </div>
 
