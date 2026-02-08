@@ -532,3 +532,31 @@ margin-bottom:10px;
 .add-evolucao input{
 display:none;
 }
+
+/* ===== PERFIL - AJUSTE FINAL DOS DADOS ===== */
+
+.perfil-dados{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.perfil-dados label{
+  font-size:14px;
+  color:#666;
+}
+
+.perfil-dados input,
+.perfil-dados textarea{
+  width:100%;
+  padding:12px;
+  border-radius:12px;
+  border:1px solid #ddd;
+  font-size:15px;
+  background:#fff;
+}
+
+.perfil-dados textarea{
+  min-height:90px;
+  resize:none;
+}
