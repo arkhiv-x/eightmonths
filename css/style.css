@@ -352,6 +352,116 @@ margin-bottom:10px;
 
 /* ===== PERFIL ===== */
 
+.foto-perfil{
+width:120px;
+height:120px;
+border-radius:50%;
+object-fit:cover;
+border:3px solid var(--rosa);
+margin:10px auto;
+display:block;
+}
+
+.center{
+text-align:center;
+}
+
+/* ===== PERFIL NOVO ===== */
+
+.perfil-topo{
+text-align:center;
+padding:25px;
+}
+
+.foto-box{
+position:relative;
+width:130px;
+margin:0 auto 10px;
+}
+
+.btn-foto{
+position:absolute;
+bottom:0;
+right:0;
+background:var(--rosa);
+color:white;
+padding:4px 8px;
+border-radius:6px;
+font-size:12px;
+cursor:pointer;
+}
+
+.btn-foto input{
+display:none;
+}
+
+#nomeExibido{
+margin-top:8px;
+font-size:20px;
+font-weight:600;
+}
+
+.perfil-dados h3{
+margin-bottom:15px;
+}
+
+.grupo{
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+.grupo label{
+font-size:13px;
+color:#555;
+}
+
+.grupo input{
+padding:10px;
+border-radius:8px;
+border:1px solid #ccc;
+}
+
+.btn-grande{
+width:100%;
+padding:12px;
+font-size:16px;
+}
+
+.galeria{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:8px;
+margin-top:10px;
+}
+
+.galeria img{
+width:100%;
+border-radius:8px;
+object-fit:cover;
+height:110px;
+}
+
+.add-evolucao{
+width:100%;
+height:120px;
+border:2px dashed #b76e79;
+border-radius:12px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:40px;
+color:#b76e79;
+cursor:pointer;
+margin-bottom:12px;
+}
+
+.add-evolucao input{
+display:none;
+}
+
+/* ===== PERFIL ===== */
+
 .perfil-topo{
 text-align:center;
 position:relative;
