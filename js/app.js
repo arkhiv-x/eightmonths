@@ -766,26 +766,6 @@ w.document.write(`<img src="${src}" style="width:100%">`);
 
 /* ===== PERFIL ===== */
 
-function salvarPerfil(){
-
-  let perfil = {
-
-    nome: document.getElementById("nomePerfil").value,
-    idade: document.getElementById("idadePerfil").value,
-    altura: document.getElementById("alturaPerfil").value,
-    peso: document.getElementById("pesoPerfil").value,
-    telefone: document.getElementById("telPerfil").value,
-    email: document.getElementById("emailPerfil").value,
-    instagram: document.getElementById("instaPerfil").value,
-    bio: document.getElementById("bioPerfil").value
-
-  };
-
-  localStorage.perfil = JSON.stringify(perfil);
-
-  alert("Perfil salvo 💖");
-
-}
 function carregarPerfil(){
 
   let dados = localStorage.perfil;
@@ -802,6 +782,10 @@ function carregarPerfil(){
   document.getElementById("emailPerfil").value = p.email || "";
   document.getElementById("instaPerfil").value = p.instagram || "";
   document.getElementById("bioPerfil").value = p.bio || "";
+
+  if(p.foto && document.getElementById("fotoPerfilPreview")){
+    document.getElementById("fotoPerfilPreview").src = p.foto;
+  }
 
 }
 
