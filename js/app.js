@@ -768,49 +768,46 @@ w.document.write(`<img src="${src}" style="width:100%">`);
 
 function salvarPerfil(){
 
-  let dados = {
-    nome: document.getElementById("perfilNome").value,
-    idade: document.getElementById("perfilIdade").value,
-    altura: document.getElementById("perfilAltura").value,
-    peso: document.getElementById("perfilPeso").value,
-    telefone: document.getElementById("perfilTelefone").value,
-    email: document.getElementById("perfilEmail").value,
-    insta: document.getElementById("perfilInsta").value,
-    bio: document.getElementById("perfilBio").value,
-    foto: document.getElementById("fotoPerfilPreview")?.src || ""
+  let perfil = {
+
+    nome: document.getElementById("nomePerfil").value,
+    idade: document.getElementById("idadePerfil").value,
+    altura: document.getElementById("alturaPerfil").value,
+    peso: document.getElementById("pesoPerfil").value,
+    telefone: document.getElementById("telPerfil").value,
+    email: document.getElementById("emailPerfil").value,
+    instagram: document.getElementById("instaPerfil").value,
+    bio: document.getElementById("bioPerfil").value
+
   };
 
-  localStorage.setItem("perfil", JSON.stringify(dados));
+  localStorage.perfil = JSON.stringify(perfil);
 
-  alert("Perfil salvo 💗");
+  alert("Perfil salvo 💖");
+
 }
-
-
-/* CARREGAR PERFIL */
-
 function carregarPerfil(){
 
-  let dados = JSON.parse(localStorage.getItem("perfil"));
+  let dados = localStorage.perfil;
 
   if(!dados) return;
 
-  document.getElementById("perfilNome").value = dados.nome || "";
-  document.getElementById("perfilIdade").value = dados.idade || "";
-  document.getElementById("perfilAltura").value = dados.altura || "";
-  document.getElementById("perfilPeso").value = dados.peso || "";
-  document.getElementById("perfilTelefone").value = dados.telefone || "";
-  document.getElementById("perfilEmail").value = dados.email || "";
-  document.getElementById("perfilInsta").value = dados.insta || "";
-  document.getElementById("perfilBio").value = dados.bio || "";
+  let p = JSON.parse(dados);
 
-  if(dados.foto && document.getElementById("fotoPerfilPreview")){
-    document.getElementById("fotoPerfilPreview").src = dados.foto;
-  }
+  document.getElementById("nomePerfil").value = p.nome || "";
+  document.getElementById("idadePerfil").value = p.idade || "";
+  document.getElementById("alturaPerfil").value = p.altura || "";
+  document.getElementById("pesoPerfil").value = p.peso || "";
+  document.getElementById("telPerfil").value = p.telefone || "";
+  document.getElementById("emailPerfil").value = p.email || "";
+  document.getElementById("instaPerfil").value = p.instagram || "";
+  document.getElementById("bioPerfil").value = p.bio || "";
 
 }
 
-carregarPerfil();
-
+document.addEventListener("DOMContentLoaded", ()=>{
+  carregarPerfil();
+});
 
 /* FOTO DE PERFIL */
 
@@ -853,7 +850,11 @@ function toggleDark(){
 
 /* CARREGAR TEMA */
 
-function carregarTema(){
+document.addEventListener("DOMContentLoaded", ()=>{
+
+  carregarTema();
+
+});
 
   if(localStorage.tema === "dark"){
 
