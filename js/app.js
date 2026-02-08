@@ -1,101 +1,103 @@
-/* FRASES */
+/* ===== ELEMENTOS ===== */
 
-const frases=[
-"Disciplina vence desânimo.",
-"Nada muda se eu não mudar."
-];
-
-if(document.getElementById("frase")){
-
-let f=localStorage.frase||0;
-
-frase.innerText=frases[f];
-
-localStorage.frase=(+f+1)%2;
-
+function $(id){
+  return document.getElementById(id);
 }
 
-/* LOGIN */
+/* ===== FRASES ===== */
+
+const frases = [
+  "Disciplina vence desânimo.",
+  "Nada muda se eu não mudar."
+];
+
+if($("frase")){
+  let f = localStorage.frase || 0;
+  $("frase").innerText = frases[f];
+  localStorage.frase = (Number(f)+1)%2;
+}
+
+/* ===== LOGIN ===== */
 
 function login(){
 
-let u=document.getElementById("user").value;
-let p=document.getElementById("pass").value;
+let u = $("user").value;
+let p = $("pass").value;
 
 if(u==="Vitória" && p==="1997"){
 
 localStorage.logado="1";
-window.location="inicio.html";
+location.href="inicio.html";
 
 }else{
 
-document.getElementById("erro").innerText="Dados incorretos";
+$("erro").innerText="Dados incorretos";
 
 }
 
 }
 
-/* LOGOUT */
+/* ===== LOGOUT ===== */
 
 function logout(){
 
 localStorage.removeItem("logado");
-window.location="index.html";
+location.href="index.html";
 
 }
 
-/* PROTEÇÃO */
+/* ===== PROTEÇÃO ===== */
 
 if(
-!window.location.href.includes("index.html") &&
+!location.href.includes("index.html") &&
 localStorage.logado!=="1"
 ){
-window.location="index.html";
+location.href="index.html";
 }
 
-/* MENU */
+/* ===== MENU ===== */
 
 function openMenu(){
-menu.classList.add("open");
-overlay.classList.add("show");
+  $("menu").classList.add("open");
+  $("overlay").classList.add("show");
 }
 
 function closeMenu(){
-menu.classList.remove("open");
-overlay.classList.remove("show");
+  $("menu").classList.remove("open");
+  $("overlay").classList.remove("show");
 }
 
-/* CHECK */
+/* ===== CHECKLIST ===== */
 
 function saveCheck(){
 
-let arr=JSON.parse(localStorage.checks||"[]");
+let arr = JSON.parse(localStorage.checks || "[]");
 
 arr.push({
-d:new Date().toLocaleDateString(),
-c1:c1.checked,
-c2:c2.checked,
-c3:c3.checked,
-c4:c4.checked
+data: new Date().toLocaleDateString(),
+c1: $("c1").checked,
+c2: $("c2").checked,
+c3: $("c3").checked,
+c4: $("c4").checked
 });
 
-localStorage.checks=JSON.stringify(arr);
+localStorage.checks = JSON.stringify(arr);
 
-alert("Salvo 💖");
+alert("Checklist salvo 💖");
 
 }
 
-/* CONTADOR */
+/* ===== CONTADOR ===== */
 
 function update(){
 
-let start=new Date("2026-02-09");
-let now=new Date();
+let start = new Date("2026-02-09");
+let now = new Date();
 
-let d=Math.floor((now-start)/86400000)+1;
+let d = Math.floor((now-start)/86400000)+1;
 
-if(document.getElementById("contador")){
-contador.innerText="Dia "+d+" de 120";
+if($("contador")){
+$("contador").innerText = "Dia "+d+" de 120";
 }
 
 }
@@ -103,19 +105,19 @@ contador.innerText="Dia "+d+" de 120";
 setInterval(update,1000);
 update();
 
-/* CALENDÁRIO */
+/* ===== CALENDÁRIO ===== */
 
 function gerarCalendario(){
 
-let hoje=new Date();
+let hoje = new Date();
 
-let ano=hoje.getFullYear();
-let mes=hoje.getMonth();
+let ano = hoje.getFullYear();
+let mes = hoje.getMonth();
 
-let primeiro=new Date(ano,mes,1).getDay();
-let ultimo=new Date(ano,mes+1,0).getDate();
+let primeiro = new Date(ano,mes,1).getDay();
+let ultimo = new Date(ano,mes+1,0).getDate();
 
-let box=document.getElementById("calendario");
+let box = $("calendario");
 
 if(!box) return;
 
@@ -131,9 +133,7 @@ let div=document.createElement("div");
 
 div.innerText=d;
 
-if(
-d===hoje.getDate()
-){
+if(d===hoje.getDate()){
 div.classList.add("hoje");
 }
 
@@ -142,28 +142,26 @@ box.appendChild(div);
 
 }
 
-/* INICIAR */
-
 gerarCalendario();
 
 /* ===== PESO ===== */
 
 function salvarPeso(){
 
-let v=document.getElementById("pesoInput").value;
+let v = $("pesoInput").value;
 
 if(!v) return;
 
-let lista=JSON.parse(localStorage.pesos||"[]");
+let lista = JSON.parse(localStorage.pesos || "[]");
 
 lista.push({
-d:new Date().toLocaleDateString(),
-p:v
+data:new Date().toLocaleDateString(),
+peso:v
 });
 
-localStorage.pesos=JSON.stringify(lista);
+localStorage.pesos = JSON.stringify(lista);
 
-document.getElementById("pesoInput").value="";
+$("pesoInput").value="";
 
 carregarPesos();
 
@@ -173,18 +171,18 @@ alert("Peso salvo 💖");
 
 function carregarPesos(){
 
-let box=document.getElementById("listaPeso");
+let box = $("listaPeso");
 
 if(!box) return;
 
-let lista=JSON.parse(localStorage.pesos||"[]");
+let lista = JSON.parse(localStorage.pesos || "[]");
 
 box.innerHTML="";
 
-lista.slice().reverse().forEach(i=>{
+lista.reverse().forEach(i=>{
 
-box.innerHTML+=
-`<p><b>${i.d}</b> — ${i.p} kg</p>`;
+box.innerHTML +=
+`<p><b>${i.data}</b> — ${i.peso} kg</p>`;
 
 });
 
@@ -192,14 +190,14 @@ box.innerHTML+=
 
 carregarPesos();
 
-/* DIÁRIO */
+/* ===== DIÁRIO ===== */
 
 function salvarDiario(){
 
-let texto = document.getElementById("diarioTexto").value;
+let txt = $("diarioTexto").value;
 
-if(texto.trim()===""){
-alert("Escreva algo primeiro 💖");
+if(!txt.trim()){
+alert("Escreva algo 💖");
 return;
 }
 
@@ -208,57 +206,56 @@ let lista = JSON.parse(localStorage.diario || "[]");
 let agora = new Date();
 
 lista.unshift({
-texto: texto,
-data: agora.toLocaleDateString(),
-hora: agora.toLocaleTimeString()
+texto:txt,
+data:agora.toLocaleDateString(),
+hora:agora.toLocaleTimeString()
 });
 
 localStorage.diario = JSON.stringify(lista);
 
-document.getElementById("diarioTexto").value = "";
+$("diarioTexto").value="";
 
 mostrarDiario();
 
-alert("Salvo com carinho 💕");
-}
+alert("Salvo 💕");
 
+}
 
 function mostrarDiario(){
 
+let box = $("listaDiario");
+
+if(!box) return;
+
 let lista = JSON.parse(localStorage.diario || "[]");
 
-let html = "";
+let html="";
 
-lista.forEach(item=>{
+lista.forEach(i=>{
 
-html += `
+html+=`
 <div class="diario-item">
-
-<small>${item.data} • ${item.hora}</small>
-
-<p>${item.texto}</p>
-
+<small>${i.data} • ${i.hora}</small>
+<p>${i.texto}</p>
 </div>
 `;
 
 });
 
-if(document.getElementById("listaDiario")){
-document.getElementById("listaDiario").innerHTML = html || "<p>Nenhum registro ainda 🌱</p>";
-}
+box.innerHTML = html || "<p>Nenhum registro 🌱</p>";
 
 }
 
 mostrarDiario();
 
-/* DIÁRIO DA HOME */
+/* ===== DIÁRIO HOME ===== */
 
 function salvarDiarioHome(){
 
-let texto = document.getElementById("diarioHome").value;
+let txt = $("diarioHome").value;
 
-if(!texto || texto.trim()===""){
-alert("Escreva algo primeiro 💖");
+if(!txt.trim()){
+alert("Escreva algo 💖");
 return;
 }
 
@@ -267,67 +264,63 @@ let lista = JSON.parse(localStorage.diario || "[]");
 let agora = new Date();
 
 lista.unshift({
-texto: texto,
-data: agora.toLocaleDateString(),
-hora: agora.toLocaleTimeString()
+texto:txt,
+data:agora.toLocaleDateString(),
+hora:agora.toLocaleTimeString()
 });
 
 localStorage.diario = JSON.stringify(lista);
 
-document.getElementById("diarioHome").value = "";
+$("diarioHome").value="";
 
-alert("Salvo no diário 💕");
+alert("Salvo 💕");
 
 }
 
-/* TREINO */
+/* ===== TREINO ===== */
 
 function registrarTreino(){
 
-let feito = document.getElementById("treinoFeito");
+let chk = $("treinoFeito");
 
-if(!feito.checked){
-alert("Marca quando concluir 💖");
+if(!chk.checked){
+alert("Marque primeiro 💖");
 return;
 }
 
 let lista = JSON.parse(localStorage.treinos || "[]");
 
-lista.push({
-data: new Date().toLocaleDateString(),
-hora: new Date().toLocaleTimeString()
+lista.unshift({
+data:new Date().toLocaleDateString(),
+hora:new Date().toLocaleTimeString()
 });
 
 localStorage.treinos = JSON.stringify(lista);
 
-feito.checked = false;
+chk.checked=false;
 
-alert("Treino registrado 💪💕");
+alert("Treino salvo 💪💕");
 
 }
 
-/* CAMINHADA */
+/* ===== CAMINHADA ===== */
 
-let walkStart = null;
-let walkTimer = null;
-
+let walkStart=null;
+let walkTimer=null;
 
 function iniciarWalk(){
 
 if(walkTimer) return;
 
-walkStart = Date.now();
+walkStart=Date.now();
 
-walkTimer = setInterval(atualizarWalk,1000);
+walkTimer=setInterval(atualizarWalk,1000);
 
 }
 
-
 function atualizarWalk(){
 
-let agora = Date.now();
-
-let diff = agora - walkStart;
+let diff = Date.now()-walkStart;
 
 let s = Math.floor(diff/1000)%60;
 let m = Math.floor(diff/60000)%60;
@@ -338,12 +331,11 @@ String(h).padStart(2,"0")+":"+
 String(m).padStart(2,"0")+":"+
 String(s).padStart(2,"0");
 
-let box = document.getElementById("tempoWalk");
-
-if(box) box.innerText = t;
-
+if($("tempoWalk")){
+$("tempoWalk").innerText=t;
 }
 
+}
 
 function encerrarWalk(){
 
@@ -353,100 +345,96 @@ return;
 }
 
 clearInterval(walkTimer);
-walkTimer = null;
+walkTimer=null;
 
-let tempo = document.getElementById("tempoWalk").innerText;
+let tempo = $("tempoWalk").innerText;
 
 let lista = JSON.parse(localStorage.walks || "[]");
 
 lista.unshift({
-data: new Date().toLocaleDateString(),
-hora: new Date().toLocaleTimeString(),
-tempo: tempo
+data:new Date().toLocaleDateString(),
+hora:new Date().toLocaleTimeString(),
+tempo:tempo
 });
 
 localStorage.walks = JSON.stringify(lista);
 
-document.getElementById("tempoWalk").innerText="00:00:00";
+$("tempoWalk").innerText="00:00:00";
 
 mostrarWalk();
 
-alert("Caminhada salva 🚶‍♀️💕");
+alert("Caminhada salva 🚶‍♀️💕
+
+");
 
 }
 
-
 function mostrarWalk(){
 
-let box = document.getElementById("listaWalk");
+let box = $("listaWalk");
 
 if(!box) return;
 
 let lista = JSON.parse(localStorage.walks || "[]");
 
-let html = "";
+let html="";
 
 lista.forEach(i=>{
 
-html+=`
-<p>
-<b>${i.data}</b> • ${i.tempo}
-</p>
-`;
+html+=`<p><b>${i.data}</b> • ${i.tempo}</p>`;
 
 });
 
-box.innerHTML = html || "<p>Nenhuma caminhada ainda 🌱</p>";
+box.innerHTML = html || "<p>Nenhuma ainda 🌱</p>";
 
 }
 
 mostrarWalk();
 
-/* ALIMENTAÇÃO */
+/* ===== ALIMENTAÇÃO ===== */
 
 function salvarComida(){
 
-let status = document.getElementById("statusComida").value;
-let obs = document.getElementById("obsComida").value;
+let status = $("statusComida").value;
+let obs = $("obsComida").value;
 
 if(!status){
-alert("Selecione uma opção 💖");
+alert("Selecione 💖");
 return;
 }
 
 let lista = JSON.parse(localStorage.comidas || "[]");
 
 lista.unshift({
-data: new Date().toLocaleDateString(),
-status: status,
-obs: obs
+data:new Date().toLocaleDateString(),
+status:status,
+obs:obs
 });
 
 localStorage.comidas = JSON.stringify(lista);
 
-document.getElementById("statusComida").value="";
-document.getElementById("obsComida").value="";
+$("statusComida").value="";
+$("obsComida").value="";
 
 mostrarComidas();
 
-alert("Registro salvo 🥗💕");
+alert("Salvo 🥗💕");
 
 }
 
-
 function mostrarComidas(){
 
-let box = document.getElementById("listaComida");
+let box = $("listaComida");
 
 if(!box) return;
 
 let lista = JSON.parse(localStorage.comidas || "[]");
 
-let html = "";
+let html="";
 
 lista.forEach(i=>{
 
-let emoji = "💛";
+let emoji="💛";
 
 if(i.status==="ok") emoji="✅";
 if(i.status==="adaptado") emoji="⚠️";
@@ -455,26 +443,26 @@ if(i.status==="fora") emoji="❌";
 html+=`
 <p>
 <b>${i.data}</b> ${emoji}<br>
-${i.obs || ""}
+${i.obs||""}
 </p>
 `;
 
 });
 
-box.innerHTML = html || "<p>Nenhum registro ainda 🌱</p>";
+box.innerHTML = html || "<p>Nenhum ainda 🌱</p>";
 
 }
 
 mostrarComidas();
 
-/* ÁGUA */
+/* ===== ÁGUA ===== */
 
 function salvarAgua(){
 
-let v = document.getElementById("aguaInput").value;
+let v = $("aguaInput").value;
 
 if(!v){
-alert("Digite quantos copos bebeu 💧");
+alert("Digite 💧");
 return;
 }
 
@@ -482,19 +470,19 @@ let hoje = new Date().toLocaleDateString();
 
 let lista = JSON.parse(localStorage.agua || "{}");
 
-lista[hoje] = v;
+lista[hoje]=v;
 
 localStorage.agua = JSON.stringify(lista);
 
 mostrarAgua();
 
-alert("Hidratação registrada 💙");
+alert("Salvo 💙");
 
 }
 
 function mostrarAgua(){
 
-let box = document.getElementById("aguaStatus");
+let box = $("aguaStatus");
 
 if(!box) return;
 
@@ -503,15 +491,9 @@ let hoje = new Date().toLocaleDateString();
 let lista = JSON.parse(localStorage.agua || "{}");
 
 if(lista[hoje]){
-
-box.innerText =
-"Hoje: " + lista[hoje] + " copos 💧";
-
+box.innerText="Hoje: "+lista[hoje]+" L 💧";
 }else{
-
-box.innerText =
-"Hoje ainda não registrado 🌱";
-
+box.innerText="Ainda não registrado 🌱";
 }
 
 }
