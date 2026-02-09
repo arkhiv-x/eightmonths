@@ -456,6 +456,64 @@ function mostrarComidas(){
 
 mostrarComidas();
 
+/* ===== CARDÁPIO SEMANAL ===== */
+
+const proteinas = [
+  { nome: "Frango", qtd: "130g" },
+  { nome: "Carne bovina", qtd: "130g" },
+  { nome: "Porco", qtd: "120g" },
+  { nome: "Atum", qtd: "1 lata (120g)" }
+];
+
+let semanaOffset = 0;
+
+
+function getSemanaAtual(){
+
+  let inicio = new Date("2026-02-09"); // início do projeto
+  let hoje = new Date();
+
+  let diff = Math.floor((hoje - inicio) / (1000*60*60*24));
+
+  let semanas = Math.floor(diff / 7);
+
+  return semanas + semanaOffset;
+}
+
+
+function mostrarCardapio(){
+
+  let s = getSemanaAtual();
+
+  let index = ((s % proteinas.length) + proteinas.length) % proteinas.length;
+
+  let p = proteinas[index];
+
+  let box = document.getElementById("cardapioSemana");
+
+  if(!box) return;
+
+  box.innerHTML = `
+    <p><b>Semana:</b> ${s+1}</p>
+    <p><b>Proteína:</b> ${p.nome}</p>
+    <p><b>Quantidade:</b> ${p.qtd}</p>
+    <p><b>Salada:</b> Alface, Repolho, Cenoura</p>
+  `;
+}
+
+
+function semanaAnterior(){
+  semanaOffset--;
+  mostrarCardapio();
+}
+
+function proximaSemana(){
+  semanaOffset++;
+  mostrarCardapio();
+}
+
+mostrarCardapio();
+
 /* ================= ÁGUA ================= */
 
 function salvarAgua(){
