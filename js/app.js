@@ -758,3 +758,180 @@ function limparTudo(){
 
   location.href="index.html";
 }
+/* ================= CARDÁPIO SEMANAL ================= */
+
+let semanaAtual = Number(localStorage.semanaAtual || 0);
+
+const cardapios = [
+
+  /* SEMANA 1 */
+  {
+    inicio: "03/02",
+    fim: "09/02",
+
+    cafe: [
+      "2 ovos (~100g)",
+      "1 fatia de pão (~50g)",
+      "Banana (~100g)",
+      "Café/Leite 200ml"
+    ],
+
+    almoco: {
+      proteina: "Frango",
+      qtd: "130g",
+      arroz: "150g",
+      feijao: "—",
+      salada: "Alface, Repolho, Cenoura"
+    },
+
+    tarde: [
+      "Iogurte 170g",
+      "Fruta (~100g)",
+      "Castanha 10g"
+    ],
+
+    jantar: [
+      "Proteína 100g",
+      "Arroz/Massa 80g",
+      "Salada livre"
+    ],
+
+    saladas: [
+      "Alface 50g",
+      "Cenoura 40g",
+      "Pepino 40g"
+    ],
+
+    frutas: [
+      "Banana 100g",
+      "Maçã 120g",
+      "Mamão 150g",
+      "Laranja 130g"
+    ]
+  },
+
+  /* SEMANA 2 */
+  {
+    inicio: "10/02",
+    fim: "16/02",
+
+    cafe: [
+      "Ovos mexidos (~100g)",
+      "Pão integral (~50g)",
+      "Maçã (~120g)",
+      "Café 200ml"
+    ],
+
+    almoco: {
+      proteina: "Carne",
+      qtd: "130g",
+      arroz: "140g",
+      feijao: "—",
+      salada: "Alface, Cenoura, Beterraba"
+    },
+
+    tarde: [
+      "Vitamina de banana",
+      "Iogurte",
+      "Castanha"
+    ],
+
+    jantar: [
+      "Carne 100g",
+      "Arroz 80g",
+      "Salada"
+    ],
+
+    saladas: [
+      "Alface",
+      "Cenoura",
+      "Beterraba"
+    ],
+
+    frutas: [
+      "Banana",
+      "Maçã",
+      "Melão",
+      "Laranja"
+    ]
+  }
+
+];
+
+
+/* MOSTRAR CARDÁPIO */
+
+function mostrarCardapio(){
+
+  let s = cardapios[semanaAtual];
+
+  if(!s) return;
+
+  $("cardapioSemana").innerText =
+  `Semana ${semanaAtual+1} • ${s.inicio} a ${s.fim}`;
+
+  /* CAFÉ */
+  $("cafeBox").innerHTML = `
+  <b>☀️ Café da Manhã</b><br>
+  • ${s.cafe.join("<br>• ")}
+  `;
+
+  /* ALMOÇO */
+  $("almocoBox").innerHTML = `
+  <b>🍱 Almoço (Marmita)</b><br>
+  • Proteína: ${s.almoco.proteina} (${s.almoco.qtd})<br>
+  • Arroz: ${s.almoco.arroz}<br>
+  • Feijão: ${s.almoco.feijao}<br>
+  • Salada: ${s.almoco.salada}
+  `;
+
+  /* TARDE */
+  $("tardeBox").innerHTML = `
+  <b>🍎 Café da Tarde / Pré-Treino</b><br>
+  • ${s.tarde.join("<br>• ")}
+  `;
+
+  /* JANTAR */
+  $("jantarBox").innerHTML = `
+  <b>🌙 Jantar</b><br>
+  • ${s.jantar.join("<br>• ")}
+  `;
+
+  /* SALADAS */
+  $("saladaBox").innerHTML = `
+  <b>🥗 Saladas</b><br>
+  • ${s.saladas.join("<br>• ")}
+  `;
+
+  /* FRUTAS */
+  $("frutaBox").innerHTML = `
+  <b>🍌 Frutas</b><br>
+  • ${s.frutas.join("<br>• ")}
+  `;
+}
+
+
+/* BOTÕES */
+
+function proximaSemana(){
+
+  if(semanaAtual < cardapios.length-1){
+    semanaAtual++;
+    localStorage.semanaAtual = semanaAtual;
+    mostrarCardapio();
+  }
+}
+
+function semanaAnterior(){
+
+  if(semanaAtual > 0){
+    semanaAtual--;
+    localStorage.semanaAtual = semanaAtual;
+    mostrarCardapio();
+  }
+}
+
+
+/* INICIAR */
+
+mostrarCardapio();
