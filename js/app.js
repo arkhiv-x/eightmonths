@@ -858,26 +858,22 @@ const cardapios = [
 
 ];
 
-
-/* MOSTRAR CARDÁPIO */
-
 function mostrarCardapio(){
 
   let s = cardapios[semanaAtual];
-
   if(!s) return;
 
-  $("cardapioSemana").innerText =
+  document.getElementById("cardapioSemana").innerText =
   `Semana ${semanaAtual+1} • ${s.inicio} a ${s.fim}`;
 
   /* CAFÉ */
-  $("cafeBox").innerHTML = `
+  document.getElementById("cafeBox").innerHTML = `
   <b>☀️ Café da Manhã</b><br>
   • ${s.cafe.join("<br>• ")}
   `;
 
   /* ALMOÇO */
-  $("almocoBox").innerHTML = `
+  document.getElementById("almocoBox").innerHTML = `
   <b>🍱 Almoço (Marmita)</b><br>
   • Proteína: ${s.almoco.proteina} (${s.almoco.qtd})<br>
   • Arroz: ${s.almoco.arroz}<br>
@@ -886,25 +882,25 @@ function mostrarCardapio(){
   `;
 
   /* TARDE */
-  $("tardeBox").innerHTML = `
+  document.getElementById("tardeBox").innerHTML = `
   <b>🍎 Café da Tarde / Pré-Treino</b><br>
   • ${s.tarde.join("<br>• ")}
   `;
 
   /* JANTAR */
-  $("jantarBox").innerHTML = `
+  document.getElementById("jantarBox").innerHTML = `
   <b>🌙 Jantar</b><br>
   • ${s.jantar.join("<br>• ")}
   `;
 
   /* SALADAS */
-  $("saladaBox").innerHTML = `
+  document.getElementById("saladaBox").innerHTML = `
   <b>🥗 Saladas</b><br>
   • ${s.saladas.join("<br>• ")}
   `;
 
   /* FRUTAS */
-  $("frutaBox").innerHTML = `
+  document.getElementById("frutaBox").innerHTML = `
   <b>🍌 Frutas</b><br>
   • ${s.frutas.join("<br>• ")}
   `;
