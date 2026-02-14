@@ -3,13 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Alimentação - Em Oito Meses</title>
-
 <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body onload="aplicarTema()">
+<body>
 
 <!-- MENU -->
 <div class="menu" id="menu">
@@ -25,13 +23,11 @@
 <a href="alimentacao.html">Alimentação</a>
 <a href="config.html">Configurações</a>
 <hr>
-
 <a onclick="logout()">Sair</a>
 
 </div>
 
 <div class="overlay" id="overlay" onclick="closeMenu()"></div>
-
 
 <!-- CONTEÚDO -->
 <div class="page">
@@ -42,58 +38,42 @@
 <b>Alimentação</b>
 </div>
 
-<!-- CARDÁPIO -->
+<!-- ================= CARDÁPIO ================= -->
 <div class="card">
 
 <h3>📅 Cardápio Semanal</h3>
-  
+
 <div class="card center">
-
   <button onclick="semanaAnterior()">🔙</button>
-
   <span id="cardapioSemana"></span>
-
   <button onclick="proximaSemana()">🔜</button>
-
 </div>
 
-<!-- CAFÉ -->
 <div class="refeicao" id="cafeBox"></div>
-
-<!-- ALMOÇO -->
 <div class="refeicao" id="almocoBox"></div>
-
-<!-- TARDE -->
 <div class="refeicao" id="tardeBox"></div>
-
-<!-- JANTAR -->
 <div class="refeicao" id="jantarBox"></div>
-
-<!-- SALADAS -->
 <div class="refeicao" id="saladaBox"></div>
-
-<!-- FRUTAS -->
 <div class="refeicao" id="frutaBox"></div>
 
 </div>
 
-</div>
-
-  <!-- ÁGUA -->
+<!-- ================= ÁGUA ================= -->
 <div class="card">
 
 <h3>💧 Meta de Água</h3>
 
 <p>Litros bebidos hoje:</p>
 
-<input type="number"
+<input 
+type="number"
 id="aguaInput"
 min="0"
-max="3L"
-placeholder="Ex: 1L">
+max="3"
+step="0.1"
+placeholder="Ex: 1.5">
 
-<button class="btn-center"
-onclick="salvarAgua()">
+<button class="btn-center" onclick="salvarAgua()">
 Salvar Água
 </button>
 
@@ -101,48 +81,43 @@ Salvar Água
 
 </div>
 
-
-<!-- CONTROLE -->
+<!-- ================= CONTROLE DO DIA ================= -->
 <div class="card">
 
 <h3>✅ Como foi hoje?</h3>
 
 <select id="statusComida">
-
 <option value="">Selecione</option>
 <option value="ok">Segui o plano</option>
 <option value="adaptado">Adaptei</option>
 <option value="fora">Fora do plano</option>
-
 </select>
 
-<textarea id="obsComida"
-placeholder="Observações (opcional)"></textarea>
+<textarea 
+id="obsComida"
+placeholder="Observações (opcional)">
+</textarea>
 
-<button class="btn-center"
-onclick="salvarComida()">
+<button class="btn-center" onclick="salvarComida()">
 Salvar
 </button>
 
 </div>
 
-
-<!-- HISTÓRICO -->
+<!-- ================= HISTÓRICO ================= -->
 <div class="card">
 
 <h3>📖 Histórico Alimentar</h3>
 
-  <button class="btn-center"
-onclick="limparComida()">
+<button class="btn-center" onclick="limparComida()">
 🗑️ Limpar Histórico
-  </button>
-  
+</button>
+
 <div id="listaComida"></div>
 
 </div>
 
-
-</div>
+</div> <!-- FIM PAGE -->
 
 <script src="js/app.js"></script>
 
